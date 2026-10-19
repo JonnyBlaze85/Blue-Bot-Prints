@@ -1,0 +1,9 @@
+PASTE THIS INSIDE YOUR EXISTING FORM, JUST ABOVE THE SUBMIT BUTTON.
+Your form also needs a phone field (name="phone"). Leave the checkbox unchecked by default.
+
+<label style="display:flex;gap:10px;align-items:flex-start;font-size:13px;line-height:1.5;margin:12px 0">
+  <input type="checkbox" name="sms_consent" value="yes" required style="margin-top:3px">
+  <span>By checking this box, I agree to receive text messages from Blue Bot Prints about its services, demos and appointments at the mobile number I provided. Consent is not a condition of purchase. Message frequency varies. Message and data rates may apply. Reply STOP to opt out or HELP for help. See our
+  <a href="https://jonnyblaze85.github.io/Blue-Bot-Prints/privacy.html">Privacy Policy</a> and
+  <a href="https://jonnyblaze85.github.io/Blue-Bot-Prints/terms.html">Terms of Service</a>.</span>
+</label>
