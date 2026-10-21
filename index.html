@@ -4,331 +4,381 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Blue Bot Prints - AI Voice Agents for Local Business</title>
-<meta name="description" content="Blue Bot Prints builds AI voice agents that answer your calls 24/7, book appointments and send call summaries. Las Vegas, NV.">
-
+<meta name="description" content="Blue Bot Prints builds AI voice agents that answer your calls 24/7, book appointments and send call summaries. Get a free demo built for your business. Las Vegas, NV.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Blue Bot Prints - Never miss another call">
+<meta property="og:description" content="AI voice agents that answer your calls, book appointments and follow up, 24/7. Get a free demo built for your business.">
+<meta property="og:image" content="https://jonnyblaze85.github.io/Blue-Bot-Prints/images/share-preview.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#1A2140">
+<link rel="icon" type="image/png" href="images/favicon.png">
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Manrope:wght@500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
 <style>
-body{margin:0;font-family:'Figtree',system-ui,sans-serif;color:#262B42;background:#FBF6EE}
-a{color:inherit;text-decoration:none}
-.ph{background:#FFF1CC;color:#6B4300;border:1px dashed #C98A00;border-radius:6px;padding:0 6px}
-details{border-bottom:1px solid #E6DAC6;padding:22px 0}
-summary{cursor:pointer;font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:21px;min-height:44px;display:flex;align-items:center;color:#1A2140}
-details p{margin:10px 0 0;color:#5C6178;font-size:17px;line-height:1.65}
-input,select{font:inherit}
-.navlink:hover{opacity:.65}
-.btn:hover{transform:translateY(-1px)}
-</style>
+/* Blue Bot Prints: navy blueprint sections for the big moments, light "drafting paper" sections for reading. */
+:root {
+  --navy: #1A2140; --navy-2: #232C55; --deep: #11172E; --blue: #2F55D4; --gold: #F2B84B; --ice: #E6EDFF; --cyan: #7FE0FF; --line: #8FB4FF;
+  --paper: #F4F7FF; --paper-2: #FFFFFF; --ink: #1A2140; --muted: #4E5775; --rule: #D8E0F5;
+  --disp: "Bricolage Grotesque", "Arial Black", system-ui, sans-serif; --body: "Manrope", "Segoe UI", system-ui, sans-serif; --mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
+body { margin: 0; font: 500 17px/1.65 var(--body); color: var(--ink); background: var(--paper); }
+a { color: inherit; }
+img, svg { max-width: 100%; }
+.wrap { max-width: 1180px; margin: 0 auto; padding-left: max(20px, env(safe-area-inset-left, 0px)); padding-right: max(20px, env(safe-area-inset-right, 0px)); }
+h1, h2, h3 { font-family: var(--disp); font-weight: 800; letter-spacing: -.02em; margin: 0; text-wrap: balance; }
+h2 { font-size: clamp(32px, 4.6vw, 48px); line-height: 1.06; }
+h3 { font-size: 21px; line-height: 1.25; font-weight: 600; letter-spacing: -.01em; }
+p { margin: 0; }
+.eyebrow { font: 500 12.5px var(--mono); letter-spacing: .16em; text-transform: uppercase; color: var(--blue); }
+.dark .eyebrow { color: var(--gold); }
+.lead { font-size: 19px; color: var(--muted); max-width: 60ch; }
+.dark .lead { color: #C4CDEB; }
+.gold { color: var(--gold); }
+.sec { padding-block: 104px; }
+.sec-head { display: grid; gap: 14px; max-width: 700px; margin-bottom: 52px; }
+.blueprint { background-color: var(--navy); color: #fff;
+  background-image: linear-gradient(rgba(143,180,255,.13) 1px, transparent 1px), linear-gradient(90deg, rgba(143,180,255,.13) 1px, transparent 1px),
+                    linear-gradient(rgba(143,180,255,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(143,180,255,.05) 1px, transparent 1px);
+  background-size: 120px 120px, 120px 120px, 24px 24px, 24px 24px; }
+.paper { background-color: var(--paper); background-image: linear-gradient(rgba(47,85,212,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(47,85,212,.05) 1px, transparent 1px); background-size: 24px 24px; }
+.white { background: var(--paper-2); }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 52px; padding: 14px 28px; border-radius: 999px; font: 700 17px var(--body); text-decoration: none; border: 2px solid transparent; cursor: pointer; transition: transform .15s, box-shadow .15s; }
+.btn:hover { transform: translateY(-1px); }
+.btn:focus-visible, a:focus-visible, summary:focus-visible, input:focus-visible, select:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
+.btn-gold { background: var(--gold); color: var(--deep); box-shadow: 0 12px 26px -12px rgba(242,184,75,.8); }
+.btn-blue { background: var(--blue); color: #fff; box-shadow: 0 12px 26px -12px rgba(47,85,212,.8); }
+.btn-ghost { border-color: rgba(230,237,255,.45); color: #fff; }
+.btn-line { border-color: var(--ink); color: var(--ink); }
 
+/* nav */
+.nav { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 20px; flex-wrap: wrap; }
+.brand { display: flex; align-items: center; gap: 12px; text-decoration: none; font: 800 22px var(--disp); letter-spacing: -.01em; color: #fff; }
+.nav nav { display: flex; align-items: center; gap: 6px 28px; flex-wrap: wrap; font-weight: 600; font-size: 15.5px; color: #C4CDEB; }
+.nav nav a { text-decoration: none; padding: 8px 0; } .nav nav a:hover { color: #fff; }
+.nav nav .btn { min-height: 44px; padding: 10px 22px; font-size: 15.5px; color: var(--deep); }
+
+/* hero */
+.hero { display: grid; grid-template-columns: 1.08fr 1fr; gap: 56px; align-items: center; padding-block: 44px 110px; }
+.hero > * { min-width: 0; }
+.hero h1 { font-size: clamp(44px, 6.4vw, 76px); line-height: .98; }
+.hero .lead { margin-top: 22px; }
+.hero .ctas { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 32px; }
+.hero .meta { margin-top: 22px; font: 500 13px var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--line); }
+.call { position: relative; background: rgba(17,23,46,.82); border: 1px solid rgba(143,180,255,.35); border-radius: 26px; padding: 26px; display: grid; gap: 14px; box-shadow: 0 40px 80px -40px rgba(0,0,0,.7); }
+.call-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.live { display: flex; align-items: center; gap: 10px; font-weight: 700; }
+.live i { width: 10px; height: 10px; border-radius: 50%; background: #4ADE80; box-shadow: 0 0 0 4px rgba(74,222,128,.18); }
+.wave { display: flex; align-items: center; gap: 3px; height: 26px; } .wave span { width: 4px; border-radius: 2px; background: var(--gold); }
+.bub { max-width: 86%; padding: 12px 16px; font-size: 15.5px; line-height: 1.5; border-radius: 18px; }
+.bub small { display: block; font: 500 11px var(--mono); letter-spacing: .12em; margin-bottom: 3px; }
+.bub.in { justify-self: start; background: rgba(230,237,255,.08); border: 1px solid rgba(143,180,255,.2); border-radius: 18px 18px 18px 5px; } .bub.in small { color: var(--line); }
+.bub.out { justify-self: end; background: var(--blue); border-radius: 18px 18px 5px 18px; } .bub.out small { color: var(--ice); }
+.call-foot { border-top: 1px dashed rgba(143,180,255,.35); padding-top: 12px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px; font-size: 13.5px; color: #C4CDEB; }
+.call-foot b { color: #4ADE80; font-weight: 700; }
+.mascot { position: absolute; width: 112px; top: -70px; right: 18px; filter: drop-shadow(0 14px 22px rgba(0,0,0,.45)); }
+
+/* proof band */
+.proof { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; padding-block: 44px; }
+.proof div { border-left: 3px solid var(--gold); padding-left: 18px; }
+.proof b { display: block; font: 800 38px/1.1 var(--disp); letter-spacing: -.02em; }
+.proof span { color: var(--muted); font-size: 15.5px; }
+
+/* steps */
+.steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; counter-reset: s; }
+.step { position: relative; background: var(--paper-2); border: 1px solid var(--rule); border-radius: 22px; padding: 32px 28px; display: grid; gap: 12px; align-content: start; }
+.step::before { counter-increment: s; content: counter(s); width: 46px; height: 46px; border-radius: 50%; border: 2px solid var(--blue); display: grid; place-items: center; font: 500 16px var(--mono); color: var(--blue); }
+.step:last-child::before { border-color: var(--gold); background: var(--gold); color: var(--deep); }
+.step p { color: var(--muted); font-size: 16px; }
+
+/* features */
+.feats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.feat { display: grid; gap: 10px; align-content: start; padding: 26px; border-radius: 20px; background: var(--paper); border: 1px solid var(--rule); }
+.feat .ic { width: 50px; height: 50px; border-radius: 14px; background: var(--ice); display: grid; place-items: center; }
+.feat p { color: var(--muted); font-size: 15.5px; }
+
+/* industries */
+.split { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
+.split > * { min-width: 0; }
+.chips { display: flex; flex-wrap: wrap; gap: 10px; }
+.chips span { border: 1px solid rgba(143,180,255,.4); background: rgba(17,23,46,.55); border-radius: 999px; padding: 11px 20px; font-weight: 600; font-size: 16px; }
+
+/* free demo band */
+.demo { display: grid; grid-template-columns: 220px 1fr auto; gap: 40px; align-items: center; background: var(--paper-2); border: 2px solid var(--gold); border-radius: 28px; padding: 36px 40px; box-shadow: 0 30px 60px -40px rgba(26,33,64,.5); }
+.demo > * { min-width: 0; }
+.demo ol { margin: 14px 0 0; padding-left: 22px; color: var(--muted); display: grid; gap: 4px; }
+
+/* cards */
+.cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+.card { background: var(--paper-2); border: 1px solid var(--rule); border-radius: 20px; padding: 26px; display: grid; gap: 8px; align-content: start; }
+.card p { color: var(--muted); font-size: 15.5px; }
+.promise { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+
+/* pricing */
+.plans { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: stretch; }
+.plan { background: var(--paper-2); border: 1px solid var(--rule); border-radius: 26px; padding: 34px; display: flex; flex-direction: column; gap: 16px; }
+.plan .price { font: 800 40px/1 var(--disp); letter-spacing: -.02em; }
+.plan ul { margin: 0; padding-left: 20px; color: var(--muted); font-size: 16px; display: grid; gap: 6px; }
+.plan .btn { margin-top: auto; }
+.plan.feature { background: var(--navy); color: #fff; border-color: var(--navy); box-shadow: 0 30px 60px -30px rgba(26,33,64,.7); }
+.plan.feature ul { color: #C4CDEB; }
+.tag { align-self: flex-start; font: 500 11.5px var(--mono); letter-spacing: .14em; text-transform: uppercase; background: var(--gold); color: var(--deep); border-radius: 999px; padding: 5px 12px; }
+.fine { margin-top: 18px; color: var(--muted); font-size: 14.5px; }
+
+/* faq */
+.faq { max-width: 860px; }
+details { border-bottom: 1px solid var(--rule); padding: 18px 0; }
+summary { cursor: pointer; list-style: none; font: 600 20px/1.35 var(--disp); display: flex; justify-content: space-between; gap: 16px; align-items: center; min-height: 44px; }
+summary::-webkit-details-marker { display: none; }
+summary::after { content: "+"; font: 500 24px var(--mono); color: var(--blue); flex: none; }
+details[open] summary::after { content: "\2212"; }
+details p { margin-top: 10px; color: var(--muted); }
+
+/* contact */
+.contact { display: grid; grid-template-columns: 1fr 1.05fr; gap: 56px; align-items: start; }
+.contact > * { min-width: 0; }
+.contact .info { display: grid; gap: 4px; margin-top: 26px; color: #C4CDEB; }
+.contact .info b { color: #fff; }
+form { background: var(--paper-2); color: var(--ink); border-radius: 26px; padding: 34px; display: grid; gap: 16px; box-shadow: 0 40px 80px -40px rgba(0,0,0,.7); }
+.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+label.f { display: grid; gap: 6px; font-weight: 700; font-size: 14.5px; }
+label.f span { font-weight: 500; color: var(--muted); }
+input[type=text], input[type=tel], input[type=email], select { width: 100%; font: 500 16.5px var(--body); color: var(--ink); padding: 13px 15px; border: 1.5px solid var(--rule); border-radius: 12px; background: #fff; min-height: 50px; }
+input:focus, select:focus { border-color: var(--blue); outline: none; }
+.consent { display: flex; gap: 10px; align-items: flex-start; font-size: 13px; line-height: 1.5; color: var(--muted); background: var(--paper); border-radius: 12px; padding: 12px 14px; }
+.consent input { margin-top: 3px; width: 18px; height: 18px; flex: none; accent-color: var(--blue); }
+.consent a { color: var(--blue); }
+.formnote { font-size: 13.5px; color: var(--muted); }
+.thanks { display: none; background: rgba(74,222,128,.12); border: 1px solid rgba(74,222,128,.45); color: #fff; border-radius: 16px; padding: 16px 18px; margin-top: 22px; }
+.thanks:target { display: block; }
+
+/* footer */
+footer { background: var(--deep); color: #C4CDEB; font-size: 14.5px; }
+footer .wrap { display: flex; flex-wrap: wrap; gap: 14px 28px; justify-content: space-between; align-items: center; padding-block: 34px; }
+footer nav { display: flex; gap: 22px; flex-wrap: wrap; } footer a { text-decoration: none; } footer a:hover { color: #fff; }
+
+@media (max-width: 960px) {
+  .hero, .split, .contact { grid-template-columns: 1fr; gap: 44px; }
+  .hero { padding-top: 70px; }
+  .steps, .promise, .plans { grid-template-columns: 1fr; }
+  .feats, .cards { grid-template-columns: 1fr 1fr; }
+  .demo { grid-template-columns: 1fr; text-align: left; padding: 30px; } .demo svg { width: 140px; }
+}
+@media (max-width: 600px) {
+  .sec { padding-block: 72px; }
+  .proof, .feats, .cards, .row2 { grid-template-columns: 1fr; }
+  .nav nav a:not(.btn) { display: none; }
+  .mascot { width: 84px; top: -54px; }
+  form { padding: 24px; }
+}
+</style>
 </head>
 <body>
-
-
-<div style="width:100%;display:flex;flex-direction:column">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <g id="bot">
+      <path d="M48 126 C46 32 194 32 192 126" fill="none" stroke="#E6EDFF" stroke-width="11" stroke-linecap="round"/>
+      <rect x="56" y="70" width="128" height="118" rx="40" fill="#2F55D4"/>
+      <path d="M96 72 H144 C168 72 182 84 183 104" fill="none" stroke="#5B7FF0" stroke-width="5" stroke-linecap="round" opacity=".9"/>
+      <rect x="69" y="86" width="102" height="80" rx="28" fill="#11172E"/>
+      <rect x="92" y="100" width="11" height="17" rx="5.5" fill="#7FE0FF"/><rect x="137" y="100" width="11" height="17" rx="5.5" fill="#7FE0FF"/>
+      <circle cx="99.5" cy="104" r="2" fill="#E6FBFF"/><circle cx="144.5" cy="104" r="2" fill="#E6FBFF"/>
+      <rect x="89" y="137" width="5.4" height="6" rx="2.7" fill="#F2B84B"/><rect x="98.2" y="133.5" width="5.4" height="13" rx="2.7" fill="#F2B84B"/><rect x="107.4" y="129" width="5.4" height="22" rx="2.7" fill="#F2B84B"/><rect x="116.6" y="125" width="5.4" height="30" rx="2.7" fill="#F2B84B"/><rect x="125.8" y="129" width="5.4" height="22" rx="2.7" fill="#F2B84B"/><rect x="135" y="133.5" width="5.4" height="13" rx="2.7" fill="#F2B84B"/><rect x="144.2" y="137" width="5.4" height="6" rx="2.7" fill="#F2B84B"/>
+      <rect x="35" y="102" width="27" height="52" rx="13.5" fill="#F2B84B"/><rect x="178" y="102" width="27" height="52" rx="13.5" fill="#F2B84B"/>
+      <path d="M193 152 C196 186 176 200 150 199" fill="none" stroke="#F2B84B" stroke-width="7" stroke-linecap="round"/>
+      <rect x="128" y="191" width="26" height="16" rx="8" fill="#F2B84B"/>
+    </g>
+  </defs>
+</svg>
 
 <!-- NAV + HERO -->
-<section style="background:#FBF6EE;color:#1A2140">
-<div style="max-width:1200px;margin:0 auto;padding:0 24px">
-<div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;padding:24px 0">
-<a href="#top" style="display:flex;align-items:center;gap:12px">
-<svg width="44" height="44" viewBox="0 0 48 48" role="img" aria-label="Blue Bot Prints logo">
-<rect width="48" height="48" rx="13" fill="#2F55D4"/>
-<polygon points="13,15 17,8 21,15" fill="#F2B84B"/>
-<polygon points="21,15 25,8 29,15" fill="#F2B84B"/>
-<rect x="9" y="14" width="27" height="23" rx="10" fill="#E6EDFF"/>
-<ellipse cx="37" cy="29" rx="7" ry="6.5" fill="#E6EDFF"/>
-<circle cx="26" cy="23" r="2.6" fill="#1A2140"/>
-<circle cx="40" cy="26.5" r="1.2" fill="#1A2140"/>
-<path d="M24 31 q6 5 13 0" fill="none" stroke="#1A2140" stroke-width="2" stroke-linecap="round"/>
-<path d="M13 24 a9 9 0 0 1 9 -9" fill="none" stroke="#1A2140" stroke-width="2" stroke-linecap="round"/>
-<rect x="7" y="21" width="6" height="10" rx="3" fill="#1A2140"/>
-<path d="M10 31 q0 5 6 5" fill="none" stroke="#1A2140" stroke-width="1.8" stroke-linecap="round"/>
-</svg>
-<span style="font-family:'Fraunces',Georgia,serif;font-weight:700;font-size:24px;letter-spacing:-0.01em">Blue Bot Prints</span>
-</a>
-<nav style="display:flex;flex-wrap:wrap;align-items:center;gap:8px 32px;font-weight:500;font-size:16px;color:#3A405A">
-<a class="navlink" href="#how" style="padding:10px 0">How it works</a>
-<a class="navlink" href="#features" style="padding:10px 0">Features</a>
-<a class="navlink" href="#pricing" style="padding:10px 0">Pricing</a>
-<a class="navlink" href="#faq" style="padding:10px 0">FAQ</a>
-<a class="btn" href="#contact" style="background:#2F55D4;color:#fff;padding:13px 26px;border-radius:999px;font-weight:600;box-shadow:0 8px 20px -8px rgba(47,85,212,.55)">Book a call</a>
-</nav>
-</div>
-
-<div id="top" style="display:flex;flex-wrap:wrap;align-items:center;gap:64px;padding:48px 0 112px">
-<div style="flex:1 1 480px;min-width:0;display:flex;flex-direction:column;gap:28px">
-<div style="align-self:flex-start;background:#F3E6CF;border-radius:999px;padding:8px 16px;font-size:14px;font-weight:600;color:#6B4A12">AI voice agents for local and small business owners</div>
-<h1 style="margin:0;font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:64px;line-height:1.05;letter-spacing:-0.02em;color:#1A2140">Never miss another call. <em style="color:#2F55D4;font-weight:500">Your AI voice agent picks up.</em></h1>
-<p style="margin:0;font-size:20px;line-height:1.65;color:#4A5068;max-width:540px">Blue Bot Prints builds AI voice agents that answer your phone around the clock, book appointments, answer common questions and send you a clear summary of every call, in your business's own voice.</p>
-<div style="display:flex;flex-wrap:wrap;gap:14px">
-<a class="btn" href="#contact" style="background:#2F55D4;color:#fff;padding:17px 32px;border-radius:999px;font-weight:600;font-size:18px;box-shadow:0 12px 26px -10px rgba(47,85,212,.6)">Book a call</a>
-<a class="btn" href="#contact" style="background:#fff;border:1.5px solid #D9CBB3;color:#1A2140;padding:16px 32px;border-radius:999px;font-weight:600;font-size:18px">Request a free demo</a>
-</div>
-<div style="font-size:15px;color:#5C6178">Voice agents from $497 &middot; Open 8am to 7pm &middot; Las Vegas, NV</div>
-</div>
-
-<div style="flex:1 1 380px;min-width:0;background:#F3EADB;border-radius:36px;padding:20px">
-<div style="background:#FFFDF9;border-radius:26px;padding:28px;display:flex;flex-direction:column;gap:16px;box-shadow:0 30px 60px -30px rgba(26,33,64,.35)">
-<div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
-<div style="display:flex;align-items:center;gap:10px;font-weight:600;color:#1A2140">
-<span style="width:10px;height:10px;border-radius:50%;background:#2FA866;display:inline-block"></span>Incoming call
-</div>
-<div style="display:flex;align-items:flex-end;gap:3px;height:24px" aria-hidden="true">
-<span style="width:4px;height:8px;background:#F2B84B;border-radius:2px"></span>
-<span style="width:4px;height:18px;background:#F2B84B;border-radius:2px"></span>
-<span style="width:4px;height:24px;background:#F2B84B;border-radius:2px"></span>
-<span style="width:4px;height:14px;background:#F2B84B;border-radius:2px"></span>
-<span style="width:4px;height:20px;background:#F2B84B;border-radius:2px"></span>
-<span style="width:4px;height:10px;background:#F2B84B;border-radius:2px"></span>
-</div>
-</div>
-<div style="align-self:flex-start;max-width:85%;background:#F3EADB;border-radius:18px 18px 18px 4px;padding:13px 17px;font-size:16px;line-height:1.5;color:#262B42">
-<div style="font-size:12px;font-weight:700;color:#6B4A12;margin-bottom:2px;letter-spacing:0.04em">CALLER</div>Hi, my air conditioner stopped working. Can someone come out today?</div>
-<div style="align-self:flex-end;max-width:85%;background:#2F55D4;border-radius:18px 18px 4px 18px;padding:13px 17px;font-size:16px;line-height:1.5;color:#fff">
-<div style="font-size:12px;font-weight:700;color:#DCE6FF;margin-bottom:2px;letter-spacing:0.04em">BLUE BOT AGENT</div>Sorry to hear that. I can get a technician to you at 3:30 this afternoon. What's the address?</div>
-<div style="align-self:flex-start;max-width:85%;background:#F3EADB;border-radius:18px 18px 18px 4px;padding:13px 17px;font-size:16px;line-height:1.5;color:#262B42">
-<div style="font-size:12px;font-weight:700;color:#6B4A12;margin-bottom:2px;letter-spacing:0.04em">CALLER</div>It's 412 Maple Street.</div>
-<div style="border-top:1px solid #E6DAC6;padding-top:14px;font-size:14px;color:#5C6178;display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px">
-<span>Appointment booked. Summary sent to your phone.</span>
-<span style="color:#8A6A2E">Sample conversation, for illustration</span>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
+<header class="blueprint dark" id="top">
+  <div class="wrap">
+    <div class="nav">
+      <a class="brand" href="#top"><svg width="44" height="44" viewBox="10 14 220 220" role="img" aria-label="Blue Bot Prints logo"><use href="#bot"/></svg>Blue Bot Prints</a>
+      <nav aria-label="Main">
+        <a href="#how">How it works</a><a href="#features">Features</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a>
+        <a class="btn btn-gold" href="#contact">Get a free demo</a>
+      </nav>
+    </div>
+    <div class="hero">
+      <div>
+        <div class="eyebrow">AI voice agents &middot; for local &amp; small business</div>
+        <h1 style="margin-top:18px">Never miss another call. <span class="gold">Your AI voice agent picks up.</span></h1>
+        <p class="lead">Blue Bot Prints builds AI voice agents that answer your phone around the clock, book appointments, answer common questions and send you a clear summary of every call, in your business's own voice.</p>
+        <div class="ctas"><a class="btn btn-gold" href="#contact">Get a free demo</a><a class="btn btn-ghost" href="#contact">Book a call</a></div>
+        <div class="meta">Voice agents from $497 &middot; Open 8am&ndash;7pm &middot; Las Vegas, NV</div>
+      </div>
+      <div class="call" aria-label="Sample phone conversation with an AI voice agent">
+        <svg class="mascot" viewBox="10 14 220 220" aria-hidden="true"><use href="#bot"/></svg>
+        <div class="call-top"><div class="live"><i></i>Incoming call</div>
+          <div class="wave" aria-hidden="true"><span style="height:8px"></span><span style="height:16px"></span><span style="height:24px"></span><span style="height:14px"></span><span style="height:20px"></span><span style="height:10px"></span></div></div>
+        <div class="bub in"><small>CALLER</small>Hi, my air conditioner stopped working. Can someone come out today?</div>
+        <div class="bub out"><small>BLUE BOT AGENT</small>Sorry to hear that. I can get a technician to you at 3:30 this afternoon. What's the address?</div>
+        <div class="bub in"><small>CALLER</small>It's 412 Maple Street.</div>
+        <div class="call-foot"><span><b>&#10003; Appointment booked.</b> Summary sent to your phone.</span><span>Sample conversation, for illustration</span></div>
+      </div>
+    </div>
+  </div>
+</header>
 
 <!-- PROOF BAND -->
-<section style="background:#FFFDF9;border-top:1px solid #EADFCB;border-bottom:1px solid #EADFCB">
-<div style="max-width:1200px;margin:0 auto;padding:48px 24px;display:flex;flex-wrap:wrap;gap:32px;justify-content:space-between">
-<div style="flex:1 1 220px;min-width:0"><div style="font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:48px;color:#1A2140">24/7</div><div style="color:#5C6178;font-size:16px;margin-top:6px">Every call answered, day or night</div></div>
-<div style="flex:1 1 220px;min-width:0"><div style="font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:48px;color:#1A2140">Free demo</div><div style="color:#5C6178;font-size:16px;margin-top:6px">See your agent working before you decide</div></div>
-<div style="flex:1 1 220px;min-width:0"><div style="font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:48px;color:#1A2140">From $497</div><div style="color:#5C6178;font-size:16px;margin-top:6px">Clear, transparent pricing</div></div>
-</div>
+<section class="white" style="border-bottom:1px solid var(--rule)">
+  <div class="wrap proof">
+    <div><b>24/7</b><span>Every call answered, day or night</span></div>
+    <div><b>Free demo</b><span>Hear your agent before you decide</span></div>
+    <div><b>From $497</b><span>Clear, month-to-month pricing</span></div>
+  </div>
 </section>
 
 <!-- HOW IT WORKS -->
-<section id="how" style="background:#F5EDE0">
-<div style="max-width:1200px;margin:0 auto;padding:112px 24px">
-<div style="max-width:660px;display:flex;flex-direction:column;gap:14px">
-<div style="font-weight:700;color:#8A5A00;font-size:14px;letter-spacing:0.12em">HOW IT WORKS</div>
-<h2 style="margin:0;font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:46px;line-height:1.1;letter-spacing:-0.015em;color:#1A2140">From first call to live agent in three simple steps</h2>
-</div>
-<div style="display:flex;flex-wrap:wrap;gap:28px;margin-top:56px">
-<div style="flex:1 1 280px;min-width:0;background:#FFFDF9;border-radius:28px;padding:36px;display:flex;flex-direction:column;gap:14px;box-shadow:0 18px 40px -26px rgba(26,33,64,.3)">
-<div style="width:48px;height:48px;border-radius:50%;background:#F2B84B;color:#1A2140;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',Georgia,serif;font-weight:700;font-size:22px">1</div>
-<h3 style="margin:0;font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:25px;color:#1A2140">We learn your business</h3>
-<p style="margin:0;color:#5C6178;font-size:17px;line-height:1.65">A short call about your services, hours, prices and the questions your callers ask most. We write your agent's script and pick a voice that fits your brand.</p>
-</div>
-<div style="flex:1 1 280px;min-width:0;background:#FFFDF9;border-radius:28px;padding:36px;display:flex;flex-direction:column;gap:14px;box-shadow:0 18px 40px -26px rgba(26,33,64,.3)">
-<div style="width:48px;height:48px;border-radius:50%;background:#F2B84B;color:#1A2140;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',Georgia,serif;font-weight:700;font-size:22px">2</div>
-<h3 style="margin:0;font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:25px;color:#1A2140">We build and test it</h3>
-<p style="margin:0;color:#5C6178;font-size:17px;line-height:1.65">We connect your calendar, phone line and tools, then run test calls with you until it sounds right and handles the tricky questions.</p>
-</div>
-<div style="flex:1 1 280px;min-width:0;background:#FFFDF9;border-radius:28px;padding:36px;display:flex;flex-direction:column;gap:14px;box-shadow:0 18px 40px -26px rgba(26,33,64,.3)">
-<div style="width:48px;height:48px;border-radius:50%;background:#F2B84B;color:#1A2140;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',Georgia,serif;font-weight:700;font-size:22px">3</div>
-<h3 style="margin:0;font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:25px;color:#1A2140">It answers. You get the summary.</h3>
-<p style="margin:0;color:#5C6178;font-size:17px;line-height:1.65">Your agent picks up every call, books or routes it, and sends you a short summary. When someone needs a human, it hands the call to you.</p>
-</div>
-</div>
-</div>
+<section class="sec paper" id="how">
+  <div class="wrap">
+    <div class="sec-head"><div class="eyebrow">How it works</div><h2>From first call to live agent in three simple steps</h2></div>
+    <div class="steps">
+      <div class="step"><h3>We learn your business</h3><p>A short call about your services, hours, prices and the questions your callers ask most. We write your agent's script and pick a voice that fits your brand.</p></div>
+      <div class="step"><h3>We build and test it</h3><p>We connect your calendar, phone line and tools, then run test calls with you until it sounds right and handles the tricky questions.</p></div>
+      <div class="step"><h3>It answers. You get the summary.</h3><p>Your agent picks up every call, books or routes it, and sends you a short summary. When someone needs a human, it hands the call to you.</p></div>
+    </div>
+  </div>
 </section>
 
 <!-- FEATURES -->
-<section id="features" style="background:#FBF6EE">
-<div style="max-width:1200px;margin:0 auto;padding:112px 24px">
-<div style="max-width:660px;display:flex;flex-direction:column;gap:14px">
-<div style="font-weight:700;color:#8A5A00;font-size:14px;letter-spacing:0.12em">WHAT IT DOES</div>
-<h2 style="margin:0;font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:46px;line-height:1.1;letter-spacing:-0.015em;color:#1A2140">A receptionist that never sleeps</h2>
-</div>
-<div style="display:flex;flex-wrap:wrap;gap:24px;margin-top:56px">
-
-<div style="flex:1 1 340px;min-width:0;display:flex;gap:20px;padding:28px;background:#FFFDF9;border:1px solid #EADFCB;border-radius:24px">
-<div style="flex:none;width:56px;height:56px;border-radius:16px;background:#E6EDFF;display:flex;align-items:center;justify-content:center"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2F55D4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg></div>
-<div><h3 style="margin:0 0 6px;font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:21px;color:#1A2140">Answers every call</h3><p style="margin:0;color:#5C6178;font-size:16px;line-height:1.6">Nights, weekends and busy hours. Callers reach a natural-sounding voice instead of voicemail.</p></div>
-</div>
-
-<div style="flex:1 1 340px;min-width:0;display:flex;gap:20px;padding:28px;background:#FFFDF9;border:1px solid #EADFCB;border-radius:24px">
-<div style="flex:none;width:56px;height:56px;border-radius:16px;background:#E6EDFF;display:flex;align-items:center;justify-content:center"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2F55D4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></div>
-<div><h3 style="margin:0 0 6px;font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:21px;color:#1A2140">Books appointments</h3><p style="margin:0;color:#5C6178;font-size:16px;line-height:1.6">Checks your calendar, offers open times and confirms the booking while the caller is still on the line.</p></div>
-</div>
-
-<div style="flex:1 1 340px;min-width:0;display:flex;gap:20px;padding:28px;background:#FFFDF9;border:1px solid #EADFCB;border-radius:24px">
-<div style="flex:none;width:56px;height:56px;border-radius:16px;background:#E6EDFF;display:flex;align-items:center;justify-content:center"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2F55D4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.5 7.2L4 20l1-4.5A8 8 0 1 1 21 12z"/><path d="M9 11h6M9 14h4"/></svg></div>
-<div><h3 style="margin:0 0 6px;font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:21px;color:#1A2140">Answers common questions</h3><p style="margin:0;color:#5C6178;font-size:16px;line-height:1.6">Hours, pricing, service areas and policies, all taught from your own information.</p></div>
-</div>
-
-<div style="flex:1 1 340px;min-width:0;display:flex;gap:20px;padding:28px;background:#FFFDF9;border:1px solid #EADFCB;border-radius:24px">
-<div style="flex:none;width:56px;height:56px;border-radius:16px;background:#E6EDFF;display:flex;align-items:center;justify-content:center"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2F55D4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h12M12 6l6 6-6 6"/><path d="M20 5v14"/></svg></div>
-<div><h3 style="margin:0 0 6px;font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:21px;color:#1A2140">Hands off to a human</h3><p style="margin:0;color:#5C6178;font-size:16px;line-height:1.6">Urgent or sensitive calls are transferred to you or your team, with the details already collected.</p></div>
-</div>
-
-<div style="flex:1 1 340px;min-width:0;display:flex;gap:20px;padding:28px;background:#FFFDF9;border:1px solid #EADFCB;border-radius:24px">
-<div style="flex:none;width:56px;height:56px;border-radius:16px;background:#E6EDFF;display:flex;align-items:center;justify-content:center"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2F55D4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v12H8l-4 4z"/><path d="M8 9h8M8 13h5"/></svg></div>
-<div><h3 style="margin:0 0 6px;font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:21px;color:#1A2140">Call summaries and transcripts</h3><p style="margin:0;color:#5C6178;font-size:16px;line-height:1.6">Every call is summarized and sent to your phone or email, with the full transcript on request.</p></div>
-</div>
-
-<div style="flex:1 1 340px;min-width:0;display:flex;gap:20px;padding:28px;background:#FFFDF9;border:1px solid #EADFCB;border-radius:24px">
-<div style="flex:none;width:56px;height:56px;border-radius:16px;background:#E6EDFF;display:flex;align-items:center;justify-content:center"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2F55D4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="M8.2 11l7.6-4M8.2 13l7.6 4"/></svg></div>
-<div><h3 style="margin:0 0 6px;font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:21px;color:#1A2140">Connects to your tools</h3><p style="margin:0;color:#5C6178;font-size:16px;line-height:1.6">Works with Google Calendar, Outlook, popular CRMs, text messaging and email.</p></div>
-</div>
-
-</div>
-</div>
+<section class="sec white" id="features">
+  <div class="wrap">
+    <div class="sec-head"><div class="eyebrow">What it does</div><h2>A receptionist that never sleeps</h2></div>
+    <div class="feats">
+      <div class="feat"><div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#2F55D4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg></div><h3>Answers every call</h3><p>Nights, weekends and busy hours. Callers reach a natural-sounding voice instead of voicemail.</p></div>
+      <div class="feat"><div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#2F55D4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></div><h3>Books appointments</h3><p>Checks your calendar, offers open times and confirms the booking while the caller is still on the line.</p></div>
+      <div class="feat"><div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#2F55D4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.5 7.2L4 20l1-4.5A8 8 0 1 1 21 12z"/><path d="M9 11h6M9 14h4"/></svg></div><h3>Answers common questions</h3><p>Hours, pricing, service areas and policies, all taught from your own information.</p></div>
+      <div class="feat"><div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#2F55D4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h12M12 6l6 6-6 6"/><path d="M20 5v14"/></svg></div><h3>Hands off to a human</h3><p>Urgent or sensitive calls are transferred to you or your team, with the details already collected.</p></div>
+      <div class="feat"><div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#2F55D4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v12H8l-4 4z"/><path d="M8 9h8M8 13h5"/></svg></div><h3>Call summaries and transcripts</h3><p>Every call is summarized and sent to your phone or email, with the full transcript on request.</p></div>
+      <div class="feat"><div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#2F55D4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="M8.2 11l7.6-4M8.2 13l7.6 4"/></svg></div><h3>Connects to your tools</h3><p>Works with Google Calendar, Outlook, popular CRMs, text messaging and email.</p></div>
+    </div>
+  </div>
 </section>
 
 <!-- INDUSTRIES -->
-<section style="background:#1A2140;color:#fff">
-<div style="max-width:1200px;margin:0 auto;padding:112px 24px;display:flex;flex-wrap:wrap;gap:56px;align-items:center">
-<div style="flex:1 1 380px;min-width:0;display:flex;flex-direction:column;gap:18px">
-<div style="font-weight:700;color:#F2B84B;font-size:14px;letter-spacing:0.12em">WHO IT'S FOR</div>
-<h2 style="margin:0;font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:46px;line-height:1.1;letter-spacing:-0.015em">Built for businesses that live on the phone</h2>
-<p style="margin:0;color:#C9CCDD;font-size:18px;line-height:1.65">If a missed call can mean a lost customer, an AI voice agent pays attention for you.</p>
-</div>
-<div style="flex:1 1 380px;min-width:0;display:flex;flex-wrap:wrap;gap:12px">
-<span style="background:#262E55;border-radius:999px;padding:13px 22px;font-size:17px;font-weight:500">Home services</span>
-<span style="background:#262E55;border-radius:999px;padding:13px 22px;font-size:17px;font-weight:500">Medical and dental offices</span>
-<span style="background:#262E55;border-radius:999px;padding:13px 22px;font-size:17px;font-weight:500">Law firms</span>
-<span style="background:#262E55;border-radius:999px;padding:13px 22px;font-size:17px;font-weight:500">Real estate</span>
-<span style="background:#262E55;border-radius:999px;padding:13px 22px;font-size:17px;font-weight:500">Restaurants</span>
-<span style="background:#262E55;border-radius:999px;padding:13px 22px;font-size:17px;font-weight:500">Salons and spas</span>
-<span style="background:#262E55;border-radius:999px;padding:13px 22px;font-size:17px;font-weight:500">Auto shops</span>
-<span style="background:#262E55;border-radius:999px;padding:13px 22px;font-size:17px;font-weight:500">Hotels and venues</span>
-</div>
-</div>
+<section class="sec blueprint dark">
+  <div class="wrap split">
+    <div style="display:grid;gap:16px"><div class="eyebrow">Who it's for</div><h2>Built for businesses that live on the phone</h2><p class="lead">If a missed call can mean a lost customer, an AI voice agent pays attention for you.</p></div>
+    <div class="chips"><span>Salons and nail techs</span><span>Barbers</span><span>Med spas</span><span>Home services</span><span>Medical and dental offices</span><span>Law firms</span><span>Real estate</span><span>Restaurants</span><span>Auto shops</span><span>Hotels and venues</span></div>
+  </div>
+</section>
+
+<!-- FREE DEMO -->
+<section class="sec paper">
+  <div class="wrap">
+    <div class="demo">
+      <svg viewBox="10 14 220 220" role="img" aria-label="Blue Bot, the Blue Bot Prints mascot"><use href="#bot"/></svg>
+      <div><div class="eyebrow">Free demo &middot; built for you</div><h2 style="margin-top:10px;font-size:clamp(28px,3.6vw,40px)">Hear an AI answer <span style="color:var(--blue)">your</span> business's calls.</h2>
+        <ol><li>Tell us about your business: services, prices, hours.</li><li>We build a demo agent that knows them.</li><li>You call it and hear exactly what your customers would hear.</li></ol></div>
+      <a class="btn btn-gold" href="#contact">Get my free demo</a>
+    </div>
+  </div>
 </section>
 
 <!-- OTHER AI SYSTEMS -->
-<section style="background:#FFFDF9">
-<div style="max-width:1200px;margin:0 auto;padding:112px 24px">
-<div style="max-width:720px;display:flex;flex-direction:column;gap:14px">
-<div style="font-weight:700;color:#8A5A00;font-size:14px;letter-spacing:0.12em">BEYOND THE PHONE</div>
-<h2 style="margin:0;font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:46px;line-height:1.1;letter-spacing:-0.015em;color:#1A2140">More AI systems, built around your business</h2>
-<p style="margin:0;color:#5C6178;font-size:18px;line-height:1.65">Voice agents are our specialty. We also build the other AI systems that keep a business running.</p>
-</div>
-<div style="display:flex;flex-wrap:wrap;gap:24px;margin-top:48px">
-<div style="flex:1 1 260px;min-width:0;background:#F5EDE0;border-radius:24px;padding:32px"><h3 style="margin:0 0 10px;font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:22px;color:#1A2140">Website and text chatbots</h3><p style="margin:0;color:#5C6178;font-size:16px;line-height:1.6">The same knowledge as your voice agent, answering visitors on your site and by text.</p></div>
-<div style="flex:1 1 260px;min-width:0;background:#F5EDE0;border-radius:24px;padding:32px"><h3 style="margin:0 0 10px;font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:22px;color:#1A2140">Workflow automation</h3><p style="margin:0;color:#5C6178;font-size:16px;line-height:1.6">Follow-ups, reminders, data entry and reports that run on their own.</p></div>
-<div style="flex:1 1 260px;min-width:0;background:#F5EDE0;border-radius:24px;padding:32px"><h3 style="margin:0 0 10px;font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:22px;color:#1A2140">Outbound calling</h3><p style="margin:0;color:#5C6178;font-size:16px;line-height:1.6">Appointment reminders and follow-up calls to people who asked to hear from you.</p></div>
-<div style="flex:1 1 260px;min-width:0;background:#F5EDE0;border-radius:24px;padding:32px"><h3 style="margin:0 0 10px;font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:22px;color:#1A2140">Custom AI assistants</h3><p style="margin:0;color:#5C6178;font-size:16px;line-height:1.6">Internal helpers trained on your documents, so your team finds answers fast.</p></div>
-</div>
-</div>
+<section class="sec white">
+  <div class="wrap">
+    <div class="sec-head"><div class="eyebrow">Beyond the phone</div><h2>More AI systems, built around your business</h2><p class="lead">Voice agents are our specialty. We also build the other AI systems that keep a business running.</p></div>
+    <div class="cards">
+      <div class="card"><h3>Website and text chatbots</h3><p>The same knowledge as your voice agent, answering visitors on your site and by text.</p></div>
+      <div class="card"><h3>Workflow automation</h3><p>Follow-ups, reminders, data entry and reports that run on their own.</p></div>
+      <div class="card"><h3>Outbound calling</h3><p>Appointment reminders and follow-up calls to people who asked to hear from you.</p></div>
+      <div class="card"><h3>Custom AI assistants</h3><p>Internal helpers trained on your documents, so your team finds answers fast.</p></div>
+    </div>
+  </div>
 </section>
 
 <!-- PROMISE -->
-<section style="background:#F5EDE0">
-<div style="max-width:1200px;margin:0 auto;padding:112px 24px">
-<h2 style="margin:0;font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:46px;line-height:1.1;letter-spacing:-0.015em;color:#1A2140;max-width:660px">Our promise to you</h2>
-<div style="display:flex;flex-wrap:wrap;gap:24px;margin-top:48px">
-<div style="flex:1 1 300px;min-width:0;background:#FFFDF9;border:1px solid #EADFCB;border-radius:24px;padding:36px;display:flex;flex-direction:column;gap:12px">
-<h3 style="margin:0;font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:24px;color:#1A2140">You approve everything</h3>
-<p style="margin:0;color:#5C6178;font-size:17px;line-height:1.65">We build and test your agent with you. Nothing goes live until you are happy with how it sounds.</p>
-</div>
-<div style="flex:1 1 300px;min-width:0;background:#FFFDF9;border:1px solid #EADFCB;border-radius:24px;padding:36px;display:flex;flex-direction:column;gap:12px">
-<h3 style="margin:0;font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:24px;color:#1A2140">A local team you can reach</h3>
-<p style="margin:0;color:#5C6178;font-size:17px;line-height:1.65">Blue Bot Prints is based in Las Vegas and available 8am to 7pm. Real people, not a call center.</p>
-</div>
-<div style="flex:1 1 300px;min-width:0;background:#FFFDF9;border:1px solid #EADFCB;border-radius:24px;padding:36px;display:flex;flex-direction:column;gap:12px">
-<h3 style="margin:0;font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:24px;color:#1A2140">Honest about AI</h3>
-<p style="margin:0;color:#5C6178;font-size:17px;line-height:1.65">Your agent never pretends to be human if a caller asks, and it hands off to you when it should.</p>
-</div>
-</div>
-</div>
+<section class="sec paper">
+  <div class="wrap">
+    <div class="sec-head"><div class="eyebrow">Our promise</div><h2>How we work with you</h2></div>
+    <div class="promise">
+      <div class="card"><h3>You approve everything</h3><p>We build and test your agent with you. Nothing goes live until you are happy with how it sounds.</p></div>
+      <div class="card"><h3>A local team you can reach</h3><p>Blue Bot Prints is based in Las Vegas and available 8am to 7pm. Real people, not a call center.</p></div>
+      <div class="card"><h3>Honest about AI</h3><p>Your agent never pretends to be human if a caller asks, and it hands off to you when it should.</p></div>
+    </div>
+  </div>
 </section>
 
 <!-- PRICING -->
-<section id="pricing" style="background:#FBF6EE">
-<div style="max-width:1200px;margin:0 auto;padding:112px 24px">
-<div style="max-width:660px;display:flex;flex-direction:column;gap:14px">
-<div style="font-weight:700;color:#8A5A00;font-size:14px;letter-spacing:0.12em">PRICING</div>
-<h2 style="margin:0;font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:46px;line-height:1.1;letter-spacing:-0.015em;color:#1A2140">Simple plans, no surprises</h2>
-</div>
-<div style="display:flex;flex-wrap:wrap;gap:24px;margin-top:56px;align-items:stretch">
-<div style="flex:1 1 300px;min-width:0;background:#FFFDF9;border:1px solid #EADFCB;border-radius:30px;padding:40px;display:flex;flex-direction:column;gap:18px">
-<h3 style="margin:0;font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:25px;color:#1A2140">AI Voice Agent</h3>
-<div style="font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:44px;color:#1A2140">From $497</div>
-<ul style="margin:0;padding-left:20px;color:#5C6178;font-size:16px;line-height:1.9"><li>Answers and routes your calls 24/7</li><li>Books appointments on your calendar</li><li>Call summaries sent to you</li></ul>
-<a class="btn" href="#contact" style="margin-top:auto;text-align:center;border:1.5px solid #1A2140;color:#1A2140;padding:15px 20px;border-radius:999px;font-weight:600">Get started</a>
-</div>
-<div style="flex:1 1 300px;min-width:0;background:#1A2140;color:#fff;border-radius:30px;padding:40px;display:flex;flex-direction:column;gap:18px;box-shadow:0 30px 60px -30px rgba(26,33,64,.6)">
-<h3 style="margin:0;font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:25px">Voice Agent + Chatbot</h3>
-<div style="font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:44px">From $997</div>
-<ul style="margin:0;padding-left:20px;color:#C9CCDD;font-size:16px;line-height:1.9"><li>Everything in AI Voice Agent</li><li>Website and text chatbot</li><li>Follow-up and reminder automations</li></ul>
-<a class="btn" href="#contact" style="margin-top:auto;text-align:center;background:#F2B84B;color:#1A2140;padding:15px 20px;border-radius:999px;font-weight:700">Get started</a>
-</div>
-<div style="flex:1 1 300px;min-width:0;background:#FFFDF9;border:1px solid #EADFCB;border-radius:30px;padding:40px;display:flex;flex-direction:column;gap:18px">
-<h3 style="margin:0;font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:25px;color:#1A2140">Custom AI Systems</h3>
-<div style="font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:44px;color:#1A2140">Custom quote</div>
-<ul style="margin:0;padding-left:20px;color:#5C6178;font-size:16px;line-height:1.9"><li>Multiple locations or phone lines</li><li>Custom integrations and workflows</li><li>Outbound reminder calls</li></ul>
-<a class="btn" href="#contact" style="margin-top:auto;text-align:center;border:1.5px solid #1A2140;color:#1A2140;padding:15px 20px;border-radius:999px;font-weight:600">Get started</a>
-</div>
-</div>
-</div>
+<section class="sec white" id="pricing">
+  <div class="wrap">
+    <div class="sec-head"><div class="eyebrow">Pricing</div><h2>Simple plans, no surprises</h2></div>
+    <div class="plans">
+      <div class="plan"><h3>AI Voice Agent</h3><div class="price">From $497<small style="font:600 16px var(--body);color:var(--muted)"> /mo</small></div>
+        <ul><li>Answers and routes your calls 24/7</li><li>Books appointments on your calendar</li><li>Call summaries sent to you</li></ul><a class="btn btn-line" href="#contact">Get started</a></div>
+      <div class="plan feature"><span class="tag">Most complete</span><h3>Voice Agent + Chatbot</h3><div class="price">From $997<small style="font:600 16px var(--body);color:#C4CDEB"> /mo</small></div>
+        <ul><li>Everything in AI Voice Agent</li><li>Website and text chatbot</li><li>Follow-up and reminder automations</li></ul><a class="btn btn-gold" href="#contact">Get started</a></div>
+      <div class="plan"><h3>Custom AI Systems</h3><div class="price">Custom quote</div>
+        <ul><li>Multiple locations or phone lines</li><li>Custom integrations and workflows</li><li>Outbound reminder calls</li></ul><a class="btn btn-line" href="#contact">Get started</a></div>
+    </div>
+    <p class="fine">Month to month, no long-term contract. Every plan starts with a free demo.</p>
+  </div>
 </section>
 
 <!-- FAQ -->
-<section id="faq" style="background:#FFFDF9">
-<div style="max-width:860px;margin:0 auto;padding:112px 24px">
-<h2 style="margin:0 0 28px;font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:46px;line-height:1.1;letter-spacing:-0.015em;color:#1A2140">Questions people ask</h2>
-<details><summary>Will callers know it's an AI?</summary><p>Your agent sounds natural, and it is honest if someone asks whether they're talking to an AI. We can also have it say so up front, whichever you prefer.</p></details>
-<details><summary>What happens if the agent can't answer something?</summary><p>It takes a message or transfers the call to you or your team, with the caller's details already collected.</p></details>
-<details><summary>Can I keep my current phone number?</summary><p>Yes. We connect the agent to your existing line.</p></details>
-<details><summary>How long does setup take?</summary><p>Most voice agents are live within about a week of our first call, depending on how many tools we connect.</p></details>
-<details><summary>Do you work with my calendar and software?</summary><p>We connect to the calendars and tools most businesses already use. Tell us what you run and we'll confirm.</p></details>
-<details><summary>Is there a contract?</summary><p>No long-term contract. Plans are month to month, and you can cancel anytime.</p></details>
-</div>
+<section class="sec paper" id="faq">
+  <div class="wrap faq">
+    <h2 style="margin-bottom:22px">Questions people ask</h2>
+    <details><summary>Will callers know it's an AI?</summary><p>Your agent sounds natural, and it is honest if someone asks whether they're talking to an AI. We can also have it say so up front, whichever you prefer.</p></details>
+    <details><summary>What happens if the agent can't answer something?</summary><p>It takes a message or transfers the call to you or your team, with the caller's details already collected.</p></details>
+    <details><summary>Can I keep my current phone number?</summary><p>Yes. We connect the agent to your existing line.</p></details>
+    <details><summary>How long does setup take?</summary><p>Most voice agents are live within about a week of our first call, depending on how many tools we connect.</p></details>
+    <details><summary>Do you work with my calendar and software?</summary><p>We connect to the calendars and tools most businesses already use. Tell us what you run and we'll confirm.</p></details>
+    <details><summary>Is there a contract?</summary><p>No long-term contract. Plans are month to month, and you can cancel anytime.</p></details>
+    <details><summary>What does the free demo include?</summary><p>We build a sample agent around your business's services, prices and hours, then you call it yourself. No cost and no obligation.</p></details>
+  </div>
 </section>
 
 <!-- CONTACT -->
-<section id="contact" style="background:#1A2140;color:#fff">
-<div style="max-width:1200px;margin:0 auto;padding:112px 24px;display:flex;flex-wrap:wrap;gap:56px">
-<div style="flex:1 1 380px;min-width:0;display:flex;flex-direction:column;gap:22px">
-<h2 style="margin:0;font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:52px;line-height:1.08;letter-spacing:-0.02em">Hear your own AI voice agent.</h2>
-<p style="margin:0;color:#C9CCDD;font-size:19px;line-height:1.65">Book a call or request a free demo. We'll build a sample agent for your business and let you call it yourself.</p>
-<div style="color:#C9CCDD;font-size:17px;line-height:1.9">
-<div>jblazzinc@gmail.com</div>
-<div>Las Vegas, NV</div>
-<div>Open 8am to 7pm</div>
-
-</div>
-</div>
-<form style="flex:1 1 380px;min-width:0;background:#FFFDF9;color:#1A2140;border-radius:30px;padding:36px;display:flex;flex-direction:column;gap:18px;box-shadow:0 30px 60px -30px rgba(0,0,0,.5)" action="https://formsubmit.co/jblazzinc@gmail.com" method="POST">
-<label style="display:flex;flex-direction:column;gap:6px;font-weight:600;font-size:15px">Your name<input type="text" required name="name" style="padding:14px 16px;border:1px solid #D9CBB3;border-radius:12px;font-size:17px;background:#fff;min-height:20px"></label>
-<label style="display:flex;flex-direction:column;gap:6px;font-weight:600;font-size:15px">Business name<input type="text" required name="business" style="padding:14px 16px;border:1px solid #D9CBB3;border-radius:12px;font-size:17px;background:#fff;min-height:20px"></label>
-<label style="display:flex;flex-direction:column;gap:6px;font-weight:600;font-size:15px">Phone or email<input type="text" required name="contact" style="padding:14px 16px;border:1px solid #D9CBB3;border-radius:12px;font-size:17px;background:#fff;min-height:20px"></label>
-<label style="display:flex;flex-direction:column;gap:6px;font-weight:600;font-size:15px">How would you like to start?
-<select name="start" style="padding:14px 16px;border:1px solid #D9CBB3;border-radius:12px;font-size:17px;background:#fff;min-height:20px"><option>Request a free demo</option><option>Book a call</option><option>Request a quote</option><option>Start a free trial</option></select></label>
-<input type="hidden" name="_subject" value="New Blue Bot Prints request"><input type="hidden" name="_next" value="https://bluebotprints.com/"><button type="submit" style="background:#2F55D4;color:#fff;border:0;border-radius:999px;padding:17px 24px;font:inherit;font-weight:700;font-size:18px;min-height:52px;cursor:pointer;box-shadow:0 12px 26px -10px rgba(47,85,212,.6)">Send my request</button>
-<div style="font-size:13px;color:#5C6178">We reply within one business day.</div>
-<label style="display:flex;gap:10px;align-items:flex-start;font-size:13px;line-height:1.5;margin:12px 0">
-  <input type="checkbox" name="sms_consent" value="yes" required style="margin-top:3px">
-  <span>By checking this box, I agree to receive text messages from Blue Bot Prints about its services, demos and appointments at the mobile number I provided. Consent is not a condition of purchase. Message frequency varies. Message and data rates may apply. Reply STOP to opt out or HELP for help. See our
-  <a href="privacy.html">Privacy Policy</a> and <a href="terms.html">Terms of Service</a>.</span>
-</label></form>
-</div>
+<section class="sec blueprint dark" id="contact">
+  <div class="wrap contact">
+    <div>
+      <div class="eyebrow">Free demo</div>
+      <h2 style="margin-top:14px">Hear your own AI voice agent.</h2>
+      <p class="lead" style="margin-top:18px">Request a free demo or book a call. We'll build a sample agent for your business and let you call it yourself.</p>
+      <div class="info"><div><b>Email:</b> jblazzinc@gmail.com</div><div><b>Where:</b> Las Vegas, NV</div><div><b>Hours:</b> 8am to 7pm</div></div>
+      <div class="thanks" id="thanks" role="status"><b>Thanks! Your request is in.</b> We'll get back to you within one business day.</div>
+    </div>
+    <form action="https://formsubmit.co/jblazzinc@gmail.com" method="POST">
+      <div class="row2">
+        <label class="f" for="f-name">Your name<input id="f-name" type="text" name="name" required autocomplete="name"></label>
+        <label class="f" for="f-biz">Business name<input id="f-biz" type="text" name="business" required autocomplete="organization"></label>
+      </div>
+      <div class="row2">
+        <label class="f" for="f-phone">Mobile phone<input id="f-phone" type="tel" name="phone" autocomplete="tel" inputmode="tel"></label>
+        <label class="f" for="f-email">Email<input id="f-email" type="email" name="email" required autocomplete="email"></label>
+      </div>
+      <label class="f" for="f-start">How would you like to start?
+        <select id="f-start" name="start"><option>Get a free demo</option><option>Book a call</option><option>Request a quote</option><option>Start a free trial</option></select></label>
+      <label class="consent" for="f-sms">
+        <input id="f-sms" type="checkbox" name="sms_consent" value="yes">
+        <span>Optional: by checking this box, I agree to receive text messages from Blue Bot Prints about its services, demos and appointments at the mobile number I provided. Consent is not a condition of purchase. Message frequency varies. Message and data rates may apply. Reply STOP to opt out or HELP for help. See our <a href="privacy.html">Privacy Policy</a> and <a href="terms.html">Terms of Service</a>.</span>
+      </label>
+      <input type="hidden" name="_subject" value="New Blue Bot Prints request">
+      <input type="hidden" name="_template" value="table">
+      <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <input type="hidden" name="_next" value="https://jonnyblaze85.github.io/Blue-Bot-Prints/#thanks">
+      <button class="btn btn-blue" type="submit">Send my request</button>
+      <div class="formnote">We reply within one business day.</div>
+    </form>
+  </div>
 </section>
 
-<!-- FOOTER -->
-<footer style="background:#12172E;color:#C9CCDD">
-<div style="max-width:1200px;margin:0 auto;padding:36px 24px;display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;align-items:center;font-size:15px">
-<div style="display:flex;align-items:center;gap:10px;color:#fff;font-family:'Fraunces',Georgia,serif;font-weight:700;font-size:19px">
-<svg width="30" height="30" viewBox="0 0 48 48" role="img" aria-label="Blue Bot Prints logo">
-<rect width="48" height="48" rx="13" fill="#2F55D4"/>
-<polygon points="13,15 17,8 21,15" fill="#F2B84B"/>
-<polygon points="21,15 25,8 29,15" fill="#F2B84B"/>
-<rect x="9" y="14" width="27" height="23" rx="10" fill="#E6EDFF"/>
-<ellipse cx="37" cy="29" rx="7" ry="6.5" fill="#E6EDFF"/>
-<circle cx="26" cy="23" r="2.6" fill="#1A2140"/>
-<path d="M24 31 q6 5 13 0" fill="none" stroke="#1A2140" stroke-width="2" stroke-linecap="round"/>
-<rect x="7" y="21" width="6" height="10" rx="3" fill="#1A2140"/>
-</svg>
-Blue Bot Prints</div>
-<div>AI voice agents and AI systems for business. Las Vegas, NV. Open 8am to 7pm.</div>
-<div>2026 Blue Bot Prints. All rights reserved.</div>
-</div>
+<footer>
+  <div class="wrap">
+    <a class="brand" href="#top" style="font-size:18px"><svg width="32" height="32" viewBox="10 14 220 220" aria-hidden="true"><use href="#bot"/></svg>Blue Bot Prints</a>
+    <div>AI voice agents for local business &middot; Las Vegas, NV</div>
+    <nav aria-label="Legal"><a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms of Service</a></nav>
+    <div>&copy; 2026 Blue Bot Prints</div>
+  </div>
 </footer>
-
-</div>
-
 </body>
 </html>
