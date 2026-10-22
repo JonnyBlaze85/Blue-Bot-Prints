@@ -122,7 +122,9 @@ p { margin: 0; }
 .promise { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
 
 /* pricing */
-.plans { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: stretch; }
+.plans { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 20px; align-items: stretch; }
+.plans .price { font-size: clamp(30px, 3vw, 40px) !important; white-space: nowrap; }
+.plans .plan { padding: 28px; }
 .plan { background: var(--paper-2); border: 1px solid var(--rule); border-radius: 26px; padding: 34px; display: flex; flex-direction: column; gap: 16px; }
 .plan .price { font: 800 40px/1 var(--disp); letter-spacing: -.02em; }
 .plan ul { margin: 0; padding-left: 20px; color: var(--muted); font-size: 16px; display: grid; gap: 6px; }
@@ -319,11 +321,13 @@ footer nav { display: flex; gap: 22px; flex-wrap: wrap; } footer a { text-decora
   <div class="wrap">
     <div class="sec-head"><div class="eyebrow">Pricing</div><h2>Simple plans, no surprises</h2></div>
     <div class="plans">
+      <div class="plan"><h3>AI Website Chatbot</h3><div class="price">$197<small style="font:600 16px var(--body);color:var(--muted)"> /mo</small></div>
+        <ul><li>Answers website visitors 24/7</li><li>Knows your services, prices and hours</li><li>Takes booking requests and sends them to you</li><li>Try it free on this page</li></ul><a class="btn btn-line" href="#try">Try it now</a></div>
       <div class="plan"><h3>AI Voice Agent</h3><div class="price">From $197<small style="font:600 16px var(--body);color:var(--muted)"> /mo</small></div>
         <ul><li><b>$197</b> After-hours: answers when you're closed</li><li><b>$297</b> AI + your team: AI answers, your staff steps in</li><li><b>$497</b> Full-time AI: every call, 24/7</li><li>Books appointments and sends you call summaries</li></ul><a class="btn btn-line" href="#contact">Get started</a></div>
       <div class="plan feature"><span class="tag">Most complete</span><h3>Voice Agent + Chatbot</h3><div class="price">From $997<small style="font:600 16px var(--body);color:#C4CDEB"> /mo</small></div>
         <ul><li>Everything in AI Voice Agent</li><li>Website and text chatbot</li><li>Follow-up and reminder automations</li></ul><a class="btn btn-gold" href="#contact">Get started</a></div>
-      <div class="plan"><h3>Custom AI Systems</h3><div class="price">Custom quote</div>
+      <div class="plan"><h3>Custom AI Systems</h3><div class="price">Custom<small style="font:600 16px var(--body);color:var(--muted)"> quote</small></div>
         <ul><li>Multiple locations or phone lines</li><li>Custom integrations and workflows</li><li>Outbound reminder calls</li></ul><a class="btn btn-line" href="#contact">Get started</a></div>
     </div>
     <p class="fine">Month to month, no long-term contract. One-time setup fee equal to your first month. Every plan starts with a free demo.</p>
