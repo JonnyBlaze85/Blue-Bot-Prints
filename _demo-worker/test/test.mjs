@@ -66,4 +66,7 @@ const sres = await W.speak(aiEnv, "hello", "thalia"); assert.equal(sres.audio, B
 // hear() falls back to the second model
 let calls = []; const hEnv = { AI: { run: async (m, i) => { calls.push(m); if (m.endsWith("turbo")) throw new Error("x"); return { text: " hi there " }; } } };
 assert.equal(await W.hear(hEnv, "QUJD"), "hi there"); assert.equal(calls.length, 2);
+assert(W.hearingHint("Business name: Top Nails LLC\nType: nail salon").includes("Top Nails LLC"));
+let seenInput; const hEnv2 = { AI: { run: async (m, i) => { seenInput = i; return { text: "ok" }; } } };
+await W.hear(hEnv2, "QUJD", {}, "HINT"); assert.equal(seenInput.initial_prompt, "HINT");
 console.log("ALL TESTS PASSED");

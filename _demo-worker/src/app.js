@@ -132,12 +132,18 @@ You are SPEAKING on the phone, not typing:
 - If the caller's words look garbled or cut off, ask them to repeat.`;
 }
 
-export async function hear(env, b64, deps = {}) {
+export function hearingHint(profile) {
+  const biz = ((String(profile || "").match(/^Business name:\s*(.+)$/im) || [])[1] || "").trim().slice(0, 60);
+  return `A customer calling ${biz || "a nail salon"}, a nail salon. Words they may use: manicure, pedicure, gel, Gel X, acrylic, ` +
+    "full set, fill, dip powder, nail art, French tip, coffin, almond, stiletto, polish change, waxing, eyebrows, appointment, walk-in.";
+}
+
+export async function hear(env, b64, deps = {}, hint = "") {
   if (deps.hear) return deps.hear(b64);
   let last;
   for (const model of STT_MODELS) {
     try {
-      const input = model.endsWith("turbo") ? { audio: b64, language: "en", vad_filter: true } : { audio: [...b64ToBytes(b64)] };
+      const input = model.endsWith("turbo") ? { audio: b64, language: "en", vad_filter: true, ...(hint ? { initial_prompt: hint } : {}) } : { audio: [...b64ToBytes(b64)] };
       const r = await env.AI.run(model, input);
       return String((r && r.text) || "").trim();
     } catch (e) { last = e; }
@@ -166,7 +172,7 @@ export async function voice(req, env, deps = {}) {
   const audio = String(b.audio || "");
   if (!audio || audio.length > LIMITS.audioB64) return json({ error: "That recording was too long. Try a shorter question." }, 400);
   const name = pickVoice(env, b.voice);
-  const heard = (await hear(env, audio, deps)).slice(0, LIMITS.msgChars);
+  const heard = (await hear(env, audio, deps, hearingHint(profile))).slice(0, LIMITS.msgChars);
   let reply;
   if (!heard || heard.replace(/[^a-z]/gi, "").length < 2) {
     reply = "Sorry, I didn't catch that. Could you say it again?";
