@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Blue Bot Prints - AI Voice Agents for Local Business</title>
-<meta name="description" content="Blue Bot Prints builds AI voice agents that answer your calls 24/7, book appointments and send call summaries. Get a free demo built for your business. Las Vegas, NV.">
+<meta name="description" content="Blue Bot Prints builds AI voice agents and chatbots that answer your customers 24/7, book appointments and send summaries. Try a free instant demo built from your own website. Las Vegas, NV.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Blue Bot Prints - Never miss another call">
-<meta property="og:description" content="AI voice agents that answer your calls, book appointments and follow up, 24/7. Get a free demo built for your business.">
+<meta property="og:description" content="AI voice agents that answer your calls, book appointments and follow up, 24/7. Try a free instant demo built from your own website.">
 <meta property="og:image" content="https://bluebotprints.com/images/share-preview.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#1A2140">
@@ -109,10 +109,11 @@ p { margin: 0; }
 .chips { display: flex; flex-wrap: wrap; gap: 10px; }
 .chips span { border: 1px solid rgba(143,180,255,.4); background: rgba(17,23,46,.55); border-radius: 999px; padding: 11px 20px; font-weight: 600; font-size: 16px; }
 
-/* free demo band */
-.demo { display: grid; grid-template-columns: 220px 1fr auto; gap: 40px; align-items: center; background: var(--paper-2); border: 2px solid var(--gold); border-radius: 28px; padding: 36px 40px; box-shadow: 0 30px 60px -40px rgba(26,33,64,.5); }
-.demo > * { min-width: 0; }
-.demo ol { margin: 14px 0 0; padding-left: 22px; color: var(--muted); display: grid; gap: 4px; }
+/* instant demo */
+.trydemo { display: grid; grid-template-columns: 1fr minmax(320px, 520px); gap: 40px; align-items: center; background: var(--paper-2); border: 2px solid var(--gold); border-radius: 28px; padding: 36px 40px; box-shadow: 0 30px 60px -40px rgba(26,33,64,.5); }
+.trydemo > * { min-width: 0; }
+.trydemo ol { margin: 14px 0 0; padding-left: 22px; color: var(--muted); display: grid; gap: 4px; }
+.trydemo iframe { width: 100%; height: 640px; border: 0; border-radius: 20px; background: #F5F7FC; }
 
 /* cards */
 .cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
@@ -168,7 +169,7 @@ footer nav { display: flex; gap: 22px; flex-wrap: wrap; } footer a { text-decora
   .hero { padding-top: 70px; }
   .steps, .promise, .plans { grid-template-columns: 1fr; }
   .feats, .cards { grid-template-columns: 1fr 1fr; }
-  .demo { grid-template-columns: 1fr; text-align: left; padding: 30px; } .demo svg { width: 140px; }
+  .trydemo { grid-template-columns: 1fr; padding: 22px 16px; gap: 24px; } .trydemo iframe { height: 600px; }
 }
 @media (max-width: 600px) {
   .sec { padding-block: 72px; }
@@ -204,7 +205,7 @@ footer nav { display: flex; gap: 22px; flex-wrap: wrap; } footer a { text-decora
       <a class="brand" href="#top"><svg width="44" height="44" viewBox="10 14 220 220" role="img" aria-label="Blue Bot Prints logo"><use href="#bot"/></svg>Blue Bot Prints</a>
       <nav aria-label="Main">
         <a href="#how">How it works</a><a href="#features">Features</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a>
-        <a class="btn btn-gold" href="https://api.leadconnectorhq.com/widget/booking/xDjkqBIZWFMZK0GraFlw" target="_blank" rel="noopener">Get a free demo</a>
+        <a class="btn btn-gold" href="#try">Try it free</a>
       </nav>
     </div>
     <div class="hero">
@@ -212,8 +213,8 @@ footer nav { display: flex; gap: 22px; flex-wrap: wrap; } footer a { text-decora
         <div class="eyebrow">AI voice agents &middot; for local &amp; small business</div>
         <h1 style="margin-top:18px">Never miss another call. <span class="gold">Your AI voice agent picks up.</span></h1>
         <p class="lead">Blue Bot Prints builds AI voice agents that answer your phone around the clock, book appointments, answer common questions and send you a clear summary of every call, in your business's own voice.</p>
-        <div class="ctas"><a class="btn btn-gold" href="https://api.leadconnectorhq.com/widget/booking/xDjkqBIZWFMZK0GraFlw" target="_blank" rel="noopener">Book my free demo</a><a class="btn btn-ghost" href="#contact">Send a message</a></div>
-        <div class="meta">Voice agents from $497 &middot; Open 8am&ndash;7pm &middot; Las Vegas, NV</div>
+        <div class="ctas"><a class="btn btn-gold" href="#try">Try it on your website</a><a class="btn btn-ghost" href="https://api.leadconnectorhq.com/widget/booking/xDjkqBIZWFMZK0GraFlw" target="_blank" rel="noopener">Book a call demo</a></div>
+        <div class="meta">AI receptionists from $197/mo &middot; Open 8am&ndash;7pm &middot; Las Vegas, NV</div>
       </div>
       <div class="call" aria-label="Sample phone conversation with an AI voice agent">
         <svg class="mascot" viewBox="10 14 220 220" aria-hidden="true"><use href="#bot"/></svg>
@@ -232,8 +233,8 @@ footer nav { display: flex; gap: 22px; flex-wrap: wrap; } footer a { text-decora
 <section class="white" style="border-bottom:1px solid var(--rule)">
   <div class="wrap proof">
     <div><b>24/7</b><span>Every call answered, day or night</span></div>
-    <div><b>Free demo</b><span>Hear your agent before you decide</span></div>
-    <div><b>From $497</b><span>Clear, month-to-month pricing</span></div>
+    <div><b>Try it now</b><span>Meet your own AI receptionist in 20 seconds</span></div>
+    <div><b>From $197</b><span>Clear, month-to-month pricing</span></div>
   </div>
 </section>
 
@@ -272,14 +273,18 @@ footer nav { display: flex; gap: 22px; flex-wrap: wrap; } footer a { text-decora
   </div>
 </section>
 
-<!-- FREE DEMO -->
-<section class="sec paper">
+<!-- INSTANT DEMO -->
+<section class="sec paper" id="try">
   <div class="wrap">
-    <div class="demo">
-      <svg viewBox="10 14 220 220" role="img" aria-label="Blue Bot, the Blue Bot Prints mascot"><use href="#bot"/></svg>
-      <div><div class="eyebrow">Free demo &middot; built for you</div><h2 style="margin-top:10px;font-size:clamp(28px,3.6vw,40px)">Hear an AI answer <span style="color:var(--blue)">your</span> business's calls.</h2>
-        <ol><li>Tell us about your business: services, prices, hours.</li><li>We build a demo agent that knows them.</li><li>You call it and hear exactly what your customers would hear.</li></ol></div>
-      <a class="btn btn-gold" href="https://api.leadconnectorhq.com/widget/booking/xDjkqBIZWFMZK0GraFlw" target="_blank" rel="noopener">Pick a demo time</a>
+    <div class="trydemo">
+      <div>
+        <div class="eyebrow">Free instant demo &middot; no sign-up</div>
+        <h2 style="margin-top:10px;font-size:clamp(28px,3.6vw,40px)">Meet <span style="color:var(--blue)">your</span> AI receptionist in 20 seconds.</h2>
+        <ol><li>Type your business's website.</li><li>Zuri reads your services, prices and hours.</li><li>Chat with her like a customer would: ask a price, ask your hours, try to book.</li></ol>
+        <p class="fine" style="margin-top:14px">Built from your public website, so some details may be missing. Nothing is booked or sent.</p>
+        <p style="margin-top:18px">Want to hear it on the phone? <a href="https://api.leadconnectorhq.com/widget/booking/xDjkqBIZWFMZK0GraFlw" target="_blank" rel="noopener" style="color:var(--blue);font-weight:700">Book a free call demo &rarr;</a></p>
+      </div>
+      <iframe src="https://bbp-demo.jblazzinc.workers.dev" title="Instant AI receptionist demo" loading="lazy" allow="clipboard-write"></iframe>
     </div>
   </div>
 </section>
@@ -314,14 +319,14 @@ footer nav { display: flex; gap: 22px; flex-wrap: wrap; } footer a { text-decora
   <div class="wrap">
     <div class="sec-head"><div class="eyebrow">Pricing</div><h2>Simple plans, no surprises</h2></div>
     <div class="plans">
-      <div class="plan"><h3>AI Voice Agent</h3><div class="price">From $497<small style="font:600 16px var(--body);color:var(--muted)"> /mo</small></div>
-        <ul><li>Answers and routes your calls 24/7</li><li>Books appointments on your calendar</li><li>Call summaries sent to you</li></ul><a class="btn btn-line" href="#contact">Get started</a></div>
+      <div class="plan"><h3>AI Voice Agent</h3><div class="price">From $197<small style="font:600 16px var(--body);color:var(--muted)"> /mo</small></div>
+        <ul><li><b>$197</b> After-hours: answers when you're closed</li><li><b>$297</b> AI + your team: AI answers, your staff steps in</li><li><b>$497</b> Full-time AI: every call, 24/7</li><li>Books appointments and sends you call summaries</li></ul><a class="btn btn-line" href="#contact">Get started</a></div>
       <div class="plan feature"><span class="tag">Most complete</span><h3>Voice Agent + Chatbot</h3><div class="price">From $997<small style="font:600 16px var(--body);color:#C4CDEB"> /mo</small></div>
         <ul><li>Everything in AI Voice Agent</li><li>Website and text chatbot</li><li>Follow-up and reminder automations</li></ul><a class="btn btn-gold" href="#contact">Get started</a></div>
       <div class="plan"><h3>Custom AI Systems</h3><div class="price">Custom quote</div>
         <ul><li>Multiple locations or phone lines</li><li>Custom integrations and workflows</li><li>Outbound reminder calls</li></ul><a class="btn btn-line" href="#contact">Get started</a></div>
     </div>
-    <p class="fine">Month to month, no long-term contract. Every plan starts with a free demo.</p>
+    <p class="fine">Month to month, no long-term contract. One-time setup fee equal to your first month. Every plan starts with a free demo.</p>
   </div>
 </section>
 
@@ -335,7 +340,8 @@ footer nav { display: flex; gap: 22px; flex-wrap: wrap; } footer a { text-decora
     <details><summary>How long does setup take?</summary><p>Most voice agents are live within about a week of our first call, depending on how many tools we connect.</p></details>
     <details><summary>Do you work with my calendar and software?</summary><p>We connect to the calendars and tools most businesses already use. Tell us what you run and we'll confirm.</p></details>
     <details><summary>Is there a contract?</summary><p>No long-term contract. Plans are month to month, and you can cancel anytime.</p></details>
-    <details><summary>What does the free demo include?</summary><p>We build a sample agent around your business's services, prices and hours, then you call it yourself. No cost and no obligation.</p></details>
+    <details><summary>What does the free demo include?</summary><p>Two options, both free. Try the instant demo on this page: type your website and chat with an AI receptionist that already knows your services, prices and hours. Or book a call demo: we build a sample voice agent around your business and you call it yourself. No cost and no obligation.</p></details>
+    <details><summary>Is the instant demo the real thing?</summary><p>It uses the same idea as the real product, built in seconds from your public website, so some details may be missing. Nothing is booked or sent. Your real agent is set up with you, tested, and only goes live when you approve it.</p></details>
   </div>
 </section>
 
@@ -345,8 +351,8 @@ footer nav { display: flex; gap: 22px; flex-wrap: wrap; } footer a { text-decora
     <div>
       <div class="eyebrow">Free demo</div>
       <h2 style="margin-top:14px">Hear your own AI voice agent.</h2>
-      <p class="lead" style="margin-top:18px">Pick a time for your free 30-minute demo, or send us a message. We'll build a sample agent for your business and let you call it yourself.</p>
-      <a class="btn btn-gold" href="https://api.leadconnectorhq.com/widget/booking/xDjkqBIZWFMZK0GraFlw" target="_blank" rel="noopener" style="margin-top:22px">Book my free demo &rarr;</a>
+      <p class="lead" style="margin-top:18px">Liked the instant demo? Pick a time for a free 30-minute call demo, or send us a message. We'll build a sample voice agent for your business and let you call it yourself.</p>
+      <a class="btn btn-gold" href="https://api.leadconnectorhq.com/widget/booking/xDjkqBIZWFMZK0GraFlw" target="_blank" rel="noopener" style="margin-top:22px">Book my call demo &rarr;</a>
       <div class="info"><div><b>Email:</b> hello@bluebotprints.com</div><div><b>Where:</b> Las Vegas, NV</div><div><b>Hours:</b> 8am to 7pm</div></div>
       <div class="thanks" id="thanks" role="status"><b>Thanks! Your request is in.</b> We'll get back to you within one business day.</div>
     </div>
