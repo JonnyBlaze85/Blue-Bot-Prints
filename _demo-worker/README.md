@@ -8,3 +8,5 @@ A salon owner types their website; the worker reads up to 5 pages, builds a sign
 - Tests: `node test/test.mjs` (no network; models are mocked).
 - Deploys: Cloudflare Workers Builds, root directory `_demo-worker`, on every push to `main`.
 - The underscore keeps this folder out of the GitHub Pages website.
+
+Connected to Cloudflare Workers Builds on Oct 22, 2026 (root directory /_demo-worker).
