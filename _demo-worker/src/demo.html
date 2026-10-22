@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Instant AI Receptionist Demo</title>
+<style>
+  :root { --navy:#1A2140; --blue:#2F55D4; --gold:#F2B84B; --bg:#F5F7FC; --card:#fff; --ink:#1A2140; --muted:#5B6480; --line:#E2E6F0; --me:#2F55D4; --bot:#EEF1FA; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg:#0F1426; --card:#171D35; --ink:#EEF1FA; --muted:#A7B0CC; --line:#2A3253; --bot:#222A48; } }
+  :root[data-theme="dark"] { --bg:#0F1426; --card:#171D35; --ink:#EEF1FA; --muted:#A7B0CC; --line:#2A3253; --bot:#222A48; }
+  * { box-sizing: border-box; }
+  html, body { margin:0; height:100%; }
+  body { background:var(--bg); color:var(--ink); font:16px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; display:flex; justify-content:center; }
+  .wrap { width:100%; max-width:560px; padding:16px; display:flex; flex-direction:column; min-height:100%; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:18px; box-shadow:0 8px 30px rgba(26,33,64,.08); overflow:hidden; display:flex; flex-direction:column; flex:1; min-height:520px; }
+  header { background:var(--navy); color:#fff; padding:16px 18px; display:flex; align-items:center; gap:12px; }
+  .dot { width:38px; height:38px; border-radius:50%; background:var(--gold); color:var(--navy); display:grid; place-items:center; font-weight:800; flex:none; }
+  header b { display:block; font-size:16px; }
+  header small { opacity:.8; font-size:13px; }
+  .tag { margin-left:auto; font-size:11px; letter-spacing:.06em; text-transform:uppercase; background:rgba(242,184,75,.18); color:var(--gold); padding:4px 8px; border-radius:999px; }
+  .start { padding:22px 18px; display:flex; flex-direction:column; gap:14px; }
+  .start h1 { font-size:22px; line-height:1.25; margin:0; }
+  .start p { margin:0; color:var(--muted); }
+  form.row { display:flex; gap:8px; }
+  input[type=text] { flex:1; min-width:0; font:inherit; color:var(--ink); background:var(--bg); border:1px solid var(--line); border-radius:12px; padding:12px 14px; }
+  input[type=text]:focus { outline:2px solid var(--blue); outline-offset:1px; }
+  button { font:inherit; font-weight:650; border:0; border-radius:12px; padding:12px 16px; background:var(--blue); color:#fff; cursor:pointer; }
+  button:disabled { opacity:.55; cursor:default; }
+  .steps { display:grid; gap:8px; margin:4px 0 0; padding:0; list-style:none; color:var(--muted); font-size:14px; }
+  .steps li::before { content:"✓"; color:var(--blue); font-weight:800; margin-right:8px; }
+  .status { font-size:14px; color:var(--muted); min-height:20px; }
+  .err { color:#C2410C; }
+  .chat { display:none; flex-direction:column; flex:1; min-height:0; }
+  .log { flex:1; overflow-y:auto; padding:16px; display:flex; flex-direction:column; gap:10px; }
+  .msg { max-width:85%; padding:10px 13px; border-radius:16px; white-space:pre-wrap; word-wrap:break-word; }
+  .bot { background:var(--bot); align-self:flex-start; border-bottom-left-radius:5px; }
+  .me { background:var(--me); color:#fff; align-self:flex-end; border-bottom-right-radius:5px; }
+  .typing { color:var(--muted); font-size:14px; padding:0 16px 6px; min-height:20px; }
+  .chips { display:flex; flex-wrap:wrap; gap:6px; padding:0 16px 10px; }
+  .chip { background:transparent; color:var(--blue); border:1px solid var(--line); border-radius:999px; padding:6px 11px; font-size:13px; font-weight:600; }
+  form.send { display:flex; gap:8px; padding:12px; border-top:1px solid var(--line); }
+  .foot { padding:10px 4px 0; font-size:12px; color:var(--muted); text-align:center; }
+  .foot a, .cta a { color:var(--blue); font-weight:650; }
+  .cta { display:none; margin:0 16px 12px; padding:10px 12px; border:1px dashed var(--gold); border-radius:12px; font-size:14px; }
+  .modes { display:flex; gap:6px; padding:10px 12px 0; }
+  .mode { flex:1; background:transparent; color:var(--muted); border:1px solid var(--line); padding:9px 10px; font-size:14px; }
+  .mode.on { background:var(--navy); color:#fff; border-color:var(--navy); }
+  .talk { display:none; flex-direction:column; align-items:center; gap:10px; padding:14px 16px 16px; border-top:1px solid var(--line); }
+  .mic { width:78px; height:78px; border-radius:50%; padding:0; display:grid; place-items:center; background:var(--blue); box-shadow:0 8px 24px rgba(47,85,212,.35); }
+  .mic svg { width:32px; height:32px; }
+  .mic.listening { background:#D9383A; animation:pulse 1.2s ease-in-out infinite; }
+  .mic.busy { background:var(--gold); }
+  @keyframes pulse { 0%,100% { box-shadow:0 0 0 0 rgba(217,56,58,.45); } 50% { box-shadow:0 0 0 14px rgba(217,56,58,0); } }
+  .talkstate { font-size:14px; color:var(--muted); text-align:center; min-height:20px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="card">
+    <header>
+      <div class="dot" aria-hidden="true">Z</div>
+      <div><b id="biz">Zuri, AI receptionist</b><small id="sub">Instant demo by Blue Bot Prints</small></div>
+      <span class="tag">Demo</span>
+    </header>
+
+    <section class="start" id="start">
+      <h1>Meet your AI receptionist in 20 seconds</h1>
+      <p>Type your salon's website. Zuri reads it, then answers like your front desk, by chat or out loud: prices, hours, and booking requests.</p>
+      <form class="row" id="scanForm">
+        <input type="text" id="site" placeholder="yoursalon.com" autocomplete="url" inputmode="url" aria-label="Your website" required>
+        <button id="go" type="submit">Try it</button>
+      </form>
+      <div class="status" id="status" role="status" aria-live="polite"></div>
+      <ul class="steps">
+        <li>Uses only what's on your public website</li>
+        <li>Nothing is booked or sent. It's a demo</li>
+        <li>Chat or talk out loud. No sign-up needed</li>
+      </ul>
+    </section>
+
+    <section class="chat" id="chat">
+      <div class="modes" role="tablist"><button type="button" class="mode on" id="mChat" role="tab">Chat</button><button type="button" class="mode" id="mTalk" role="tab">Talk to Zuri</button></div>
+      <div class="log" id="log" aria-live="polite"></div>
+      <div class="typing" id="typing"></div>
+      <div class="chips" id="chips"></div>
+      <div class="cta" id="cta">Like what you see? <a id="ctaLink" href="#" target="_blank" rel="noopener">Book a free demo</a> and we'll put Zuri on your phone line too.</div>
+      <div class="talk" id="talk">
+        <button type="button" class="mic" id="mic" aria-label="Talk to Zuri"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+        <div class="talkstate" id="talkstate">Tap the mic and talk, like you're calling the salon.</div>
+      </div>
+      <form class="send" id="sendForm">
+        <input type="text" id="text" placeholder="Ask about prices, hours, or book..." maxlength="500" autocomplete="off" aria-label="Your message">
+        <button id="sendBtn" type="submit">Send</button>
+      </form>
+    </section>
+  </div>
+  <div class="foot">Answers come from your public website and may be incomplete. <a href="#" id="restart" hidden>Try another website</a></div>
+</div>
+<script>
+(() => {
+  const API = (window.DEMO_API || "").replace(/\/$/, "");          // same server by default
+  const BOOK = "https://api.leadconnectorhq.com/widget/booking/xDjkqBIZWFMZK0GraFlw";
+  const $ = (id) => document.getElementById(id);
+  let S = null, msgs = [], busy = false, turns = 0;
+  $("ctaLink").href = BOOK;
+
+  async function post(path, body) {
+    const r = await fetch(API + path, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(body) });
+    const j = await r.json().catch(() => ({}));
+    if (!r.ok) throw new Error(j.error || "Something went wrong. Please try again.");
+    return j;
+  }
+  function add(role, text) {
+    const d = document.createElement("div");
+    d.className = "msg " + (role === "user" ? "me" : "bot");
+    d.textContent = text;
+    $("log").appendChild(d);
+    $("log").scrollTop = $("log").scrollHeight;
+  }
+  function chips(list) {
+    $("chips").innerHTML = "";
+    list.forEach((t) => { const b = document.createElement("button"); b.type = "button"; b.className = "chip"; b.textContent = t; b.onclick = () => send(t); $("chips").appendChild(b); });
+  }
+
+  $("scanForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const url = $("site").value.trim();
+    if (!url) return;
+    $("go").disabled = true; $("status").className = "status";
+    const lines = ["Opening your website...", "Reading your services and prices...", "Learning your hours...", "Training Zuri..."];
+    let i = 0; $("status").textContent = lines[0];
+    const tick = setInterval(() => { i = Math.min(i + 1, lines.length - 1); $("status").textContent = lines[i]; }, 2500);
+    try {
+      S = await post("/api/scan", { url });
+      $("biz").textContent = "Zuri at " + S.name;
+      $("sub").textContent = "AI receptionist · instant demo";
+      $("start").style.display = "none"; $("chat").style.display = "flex"; $("restart").hidden = false;
+      msgs = [{ role: "assistant", content: S.greeting }]; add("assistant", S.greeting);
+      chips(["How much is a gel manicure?", "What are your hours?", "Can I book for tomorrow?"]);
+      $("text").focus();
+    } catch (err) {
+      $("status").textContent = err.message; $("status").className = "status err";
+    } finally { clearInterval(tick); $("go").disabled = false; }
+  });
+
+  async function send(text) {
+    text = String(text || "").trim();
+    if (!text || busy || !S) return;
+    busy = true; $("sendBtn").disabled = true; $("chips").innerHTML = "";
+    add("user", text); msgs.push({ role: "user", content: text }); $("text").value = "";
+    $("typing").textContent = "Zuri is typing...";
+    try {
+      const r = await post("/api/chat", { profile: S.profile, exp: S.exp, token: S.token, messages: msgs.slice(-16) });
+      msgs.push({ role: "assistant", content: r.reply }); add("assistant", r.reply);
+      if (++turns >= 3) $("cta").style.display = "block";
+    } catch (err) { add("assistant", err.message); }
+    finally { $("typing").textContent = ""; busy = false; $("sendBtn").disabled = false; $("text").focus(); }
+  }
+  $("sendForm").addEventListener("submit", (e) => { e.preventDefault(); send($("text").value); });
+  $("restart").addEventListener("click", (e) => { e.preventDefault(); location.reload(); });
+
+  // ---------------------------------------------------------------- voice
+  const VOICE = (new URLSearchParams(location.search).get("voice") || "").toLowerCase();
+  const V = { on: false, state: "idle", stream: null, ctx: null, proc: null, chunks: [], audio: null, greeted: false };
+  function setMode(talk) {
+    $("mChat").classList.toggle("on", !talk); $("mTalk").classList.toggle("on", talk);
+    $("sendForm").style.display = talk ? "none" : "flex"; $("chips").style.display = talk ? "none" : "flex";
+    $("talk").style.display = talk ? "flex" : "none";
+    if (!talk) stopAll();
+    else if (!V.greeted) { V.greeted = true; greetAloud(); }
+  }
+  $("mChat").onclick = () => setMode(false);
+  $("mTalk").onclick = () => setMode(true);
+  function tstate(st, text) {
+    V.state = st; $("talkstate").textContent = text;
+    $("mic").classList.toggle("listening", st === "listening"); $("mic").classList.toggle("busy", st === "thinking" || st === "speaking");
+  }
+  function play(b64, mime, then) {
+    stopAudio();
+    const a = new Audio("data:" + (mime || "audio/mpeg") + ";base64," + b64);
+    V.audio = a; tstate("speaking", "Zuri is talking... tap to interrupt");
+    a.onended = () => { V.audio = null; then && then(); };
+    a.onerror = () => { V.audio = null; then && then(); };
+    a.play().catch(() => { V.audio = null; tstate("idle", "Tap the mic to talk."); });
+  }
+  function stopAudio() { if (V.audio) { try { V.audio.pause(); } catch (e) {} V.audio = null; } }
+  function stopAll() { stopAudio(); stopRec(false); tstate("idle", "Tap the mic and talk, like you're calling the salon."); }
+  async function greetAloud() {
+    tstate("thinking", "Connecting you to Zuri...");
+    try {
+      const r = await post("/api/greet", { profile: S.profile, exp: S.exp, token: S.token, voice: VOICE });
+      play(r.audio, r.mime, () => listen());
+    } catch (err) { tstate("idle", err.message); }
+  }
+  async function listen() {
+    if (busy) return;
+    try {
+      V.stream = V.stream || await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: true, noiseSuppression: true, autoGainControl: true } });
+    } catch (e) { tstate("idle", "Please allow the microphone to talk to Zuri, or use Chat."); return; }
+    const AC = window.AudioContext || window.webkitAudioContext;
+    V.ctx = V.ctx || new AC();
+    if (V.ctx.state === "suspended") await V.ctx.resume();
+    const src = V.ctx.createMediaStreamSource(V.stream);
+    const proc = V.ctx.createScriptProcessor(4096, 1, 1);
+    V.chunks = []; V.proc = proc; V.src = src;
+    let spoke = false, quiet = 0, floor = 0.01, t0 = performance.now();
+    proc.onaudioprocess = (e) => {
+      const x = e.inputBuffer.getChannelData(0);
+      V.chunks.push(new Float32Array(x));
+      let sum = 0; for (let i = 0; i < x.length; i++) sum += x[i] * x[i];
+      const rms = Math.sqrt(sum / x.length), ms = (x.length / V.ctx.sampleRate) * 1000;
+      if (!spoke) floor = floor * 0.95 + rms * 0.05;
+      if (rms > Math.max(0.02, floor * 3)) { spoke = true; quiet = 0; } else if (spoke) quiet += ms;
+      const age = performance.now() - t0;
+      if ((spoke && quiet > 900) || age > 12000) stopRec(true);
+      else if (!spoke && age > 8000) { stopRec(false); tstate("idle", "I didn't hear anything. Tap the mic to talk."); }
+    };
+    src.connect(proc); proc.connect(V.ctx.destination);
+    tstate("listening", "Listening... just talk, I'll answer when you pause.");
+  }
+  function stopRec(send) {
+    if (!V.proc) return;
+    try { V.proc.disconnect(); V.src.disconnect(); } catch (e) {}
+    V.proc.onaudioprocess = null; V.proc = null;
+    if (send) sendVoice(toWav(V.chunks, V.ctx.sampleRate));
+    V.chunks = [];
+  }
+  async function sendVoice(b64) {
+    busy = true; tstate("thinking", "Zuri is thinking...");
+    try {
+      const r = await post("/api/voice", { profile: S.profile, exp: S.exp, token: S.token, messages: msgs.slice(-16), audio: b64, voice: VOICE });
+      if (r.heard) { add("user", r.heard); msgs.push({ role: "user", content: r.heard }); }
+      add("assistant", r.reply); msgs.push({ role: "assistant", content: r.reply });
+      if (++turns >= 3) $("cta").style.display = "block";
+      busy = false;
+      play(r.audio, r.mime, () => { if ($("talk").style.display !== "none") listen(); });
+    } catch (err) { busy = false; tstate("idle", err.message); }
+  }
+  $("mic").onclick = () => {
+    if (V.state === "speaking") { stopAudio(); listen(); }
+    else if (V.state === "listening") stopRec(true);
+    else if (V.state === "idle") listen();
+  };
+  function toWav(chunks, rate) {
+    let n = 0; chunks.forEach((c) => (n += c.length));
+    const all = new Float32Array(n); let o = 0; chunks.forEach((c) => { all.set(c, o); o += c.length; });
+    const ratio = rate / 16000, len = Math.floor(n / ratio), pcm = new Int16Array(len);
+    for (let i = 0; i < len; i++) { const v = Math.max(-1, Math.min(1, all[Math.floor(i * ratio)] || 0)); pcm[i] = v < 0 ? v * 0x8000 : v * 0x7fff; }
+    const buf = new ArrayBuffer(44 + pcm.length * 2), d = new DataView(buf);
+    const w = (p, s) => { for (let i = 0; i < s.length; i++) d.setUint8(p + i, s.charCodeAt(i)); };
+    w(0, "RIFF"); d.setUint32(4, 36 + pcm.length * 2, true); w(8, "WAVE"); w(12, "fmt "); d.setUint32(16, 16, true);
+    d.setUint16(20, 1, true); d.setUint16(22, 1, true); d.setUint32(24, 16000, true); d.setUint32(28, 32000, true);
+    d.setUint16(32, 2, true); d.setUint16(34, 16, true); w(36, "data"); d.setUint32(40, pcm.length * 2, true);
+    new Int16Array(buf, 44).set(pcm);
+    const bytes = new Uint8Array(buf); let s = "";
+    for (let i = 0; i < bytes.length; i += 0x8000) s += String.fromCharCode(...bytes.subarray(i, i + 0x8000));
+    return btoa(s);
+  }
+})();
+</script>
+</body>
+</html>
