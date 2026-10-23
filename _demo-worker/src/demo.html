@@ -52,6 +52,9 @@
   .mic.busy { background:var(--gold); }
   @keyframes pulse { 0%,100% { box-shadow:0 0 0 0 rgba(217,56,58,.45); } 50% { box-shadow:0 0 0 14px rgba(217,56,58,0); } }
   .talkstate { font-size:14px; color:var(--muted); text-align:center; min-height:20px; }
+  .talkrow { display:flex; align-items:center; gap:14px; }
+  .endcall { background:transparent; color:#D9383A; border:1px solid #D9383A; padding:9px 16px; font-size:14px; }
+  .endcall[hidden] { display:none; }
 </style>
 </head>
 <body>
@@ -85,7 +88,7 @@
       <div class="chips" id="chips"></div>
       <div class="cta" id="cta">Like what you see? <a id="ctaLink" href="#" target="_blank" rel="noopener">Book a free demo</a> and we'll put Luna on your phone line too.</div>
       <div class="talk" id="talk">
-        <button type="button" class="mic" id="mic" aria-label="Talk to Luna"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+        <div class="talkrow"><button type="button" class="mic" id="mic" aria-label="Talk to Luna"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button><button type="button" class="endcall" id="endcall" hidden>Stop</button></div>
         <div class="talkstate" id="talkstate">Tap the mic and talk, like you're calling the salon.</div>
       </div>
       <form class="send" id="sendForm">
@@ -170,7 +173,7 @@
     else if (!V.greeted) { V.greeted = true; greetAloud(); }
   }
   $("mChat").onclick = () => setMode(false);
-  $("mTalk").onclick = async () => { await unlock(); setMode(true); };
+  $("mTalk").onclick = async () => { V.stopped = false; await unlock(); setMode(true); };
   /** Phones only allow sound and the microphone from inside a tap: open both here, once. */
   async function unlock() {
     const AC = window.AudioContext || window.webkitAudioContext;
@@ -181,7 +184,7 @@
     }
   }
   function tstate(st, text) {
-    V.state = st; $("talkstate").textContent = text;
+    V.state = st; $("talkstate").textContent = text; $("endcall").hidden = st === "idle";
     $("mic").classList.toggle("listening", st === "listening"); $("mic").classList.toggle("busy", st === "thinking" || st === "speaking");
   }
   async function play(b64, mime, then) {
@@ -204,12 +207,15 @@
     }
   }
   function stopAudio() { if (V.audio) { try { V.audio.stop(); } catch (e) {} V.audio = null; } }
-  function stopAll() { stopAudio(); stopRec(false); tstate("idle", "Tap the mic and talk, like you're calling the salon."); }
+  function stopAll() { V.stopped = true; stopAudio(); stopRec(false); releaseMic(); tstate("idle", "Stopped. Tap the mic to talk again."); }
+  function releaseMic() { if (V.stream) { V.stream.getTracks().forEach((t) => t.stop()); V.stream = null; } }
+  $("endcall").onclick = () => stopAll();
   async function greetAloud() {
     tstate("thinking", "Connecting you to Luna...");
     try {
       const r = await post("/api/greet", { profile: S.profile, exp: S.exp, token: S.token, voice: VOICE });
-      play(r.audio, r.mime, () => listen());
+      if (V.stopped) return;
+      play(r.audio, r.mime, () => { if (!V.stopped) listen(); });
     } catch (err) { tstate("idle", err.message); }
   }
   async function listen() {
@@ -250,10 +256,12 @@
       add("assistant", r.reply); msgs.push({ role: "assistant", content: r.reply });
       if (++turns >= 3) $("cta").style.display = "block";
       busy = false;
-      play(r.audio, r.mime, () => { if ($("talk").style.display !== "none") listen(); });
+      if (V.stopped) { tstate("idle", "Stopped. Tap the mic to talk again."); return; }
+      play(r.audio, r.mime, () => { if ($("talk").style.display !== "none" && !V.stopped) listen(); });
     } catch (err) { busy = false; tstate("idle", err.message); }
   }
   $("mic").onclick = async () => {
+    V.stopped = false;
     await unlock();
     if (V.state === "speaking") { stopAudio(); listen(); }
     else if (V.state === "listening") stopRec(true);
