@@ -286,7 +286,7 @@ footer nav { display: flex; gap: 22px; flex-wrap: wrap; } footer a { text-decora
         <p class="fine" style="margin-top:14px">Built from your public website, so some details may be missing. Nothing is booked or sent.</p>
         <p style="margin-top:18px">Want it on your real phone line? <a href="https://api.leadconnectorhq.com/widget/booking/xDjkqBIZWFMZK0GraFlw" target="_blank" rel="noopener" style="color:var(--blue);font-weight:700">Book a free call demo &rarr;</a></p>
       </div>
-      <iframe src="https://bbp-demo.jblazzinc.workers.dev" title="Instant AI receptionist demo" loading="lazy" allow="microphone; autoplay; clipboard-write"></iframe>
+      <iframe id="demoFrame" src="https://bbp-demo.jblazzinc.workers.dev" title="Instant AI receptionist demo" loading="lazy" allow="microphone; autoplay; clipboard-write"></iframe>
     </div>
   </div>
 </section>
@@ -394,5 +394,17 @@ footer nav { display: flex; gap: 22px; flex-wrap: wrap; } footer a { text-decora
     <div>&copy; 2026 Blue Bot Prints</div>
   </div>
 </footer>
+<script>
+/* Personal demo links: bluebotprints.com/?site=theirsalon.com opens the demo already trained on their website */
+(function () {
+  var site = new URLSearchParams(location.search).get("site");
+  var f = document.getElementById("demoFrame");
+  if (site && f) {
+    f.removeAttribute("loading");
+    f.src = "https://bbp-demo.jblazzinc.workers.dev/?site=" + encodeURIComponent(site.slice(0, 200));
+    setTimeout(function () { document.getElementById("try").scrollIntoView({ behavior: "smooth" }); }, 400);
+  }
+})();
+</script>
 </body>
 </html>

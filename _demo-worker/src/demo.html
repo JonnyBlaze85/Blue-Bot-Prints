@@ -160,7 +160,10 @@
     finally { $("typing").textContent = ""; busy = false; $("sendBtn").disabled = false; $("text").focus(); }
   }
   $("sendForm").addEventListener("submit", (e) => { e.preventDefault(); send($("text").value); });
-  $("restart").addEventListener("click", (e) => { e.preventDefault(); location.reload(); });
+  $("restart").addEventListener("click", (e) => { e.preventDefault(); location.href = location.pathname; });
+  // Personal demo links: ?site=theirsalon.com opens straight into their own receptionist (used in outreach)
+  const preset = (new URLSearchParams(location.search).get("site") || "").trim().slice(0, 200);
+  if (preset) { $("site").value = preset; setTimeout(() => $("scanForm").requestSubmit ? $("scanForm").requestSubmit() : $("go").click(), 300); }
 
   // ---------------------------------------------------------------- voice
   const VOICE = (new URLSearchParams(location.search).get("voice") || "").toLowerCase();
