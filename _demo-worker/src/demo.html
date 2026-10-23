@@ -58,14 +58,14 @@
 <div class="wrap">
   <div class="card">
     <header>
-      <div class="dot" aria-hidden="true">Z</div>
-      <div><b id="biz">Zuri, AI receptionist</b><small id="sub">Instant demo by Blue Bot Prints</small></div>
+      <div class="dot" aria-hidden="true">L</div>
+      <div><b id="biz">Luna, AI receptionist</b><small id="sub">Instant demo by Blue Bot Prints</small></div>
       <span class="tag">Demo</span>
     </header>
 
     <section class="start" id="start">
       <h1>Meet your AI receptionist in 20 seconds</h1>
-      <p>Type your salon's website. Zuri reads it, then answers like your front desk, by chat or out loud: prices, hours, and booking requests.</p>
+      <p>Type your salon's website. Luna reads it, then answers like your front desk, by chat or out loud: prices, hours, and booking requests.</p>
       <form class="row" id="scanForm">
         <input type="text" id="site" placeholder="yoursalon.com" autocomplete="url" inputmode="url" aria-label="Your website" required>
         <button id="go" type="submit">Try it</button>
@@ -79,13 +79,13 @@
     </section>
 
     <section class="chat" id="chat">
-      <div class="modes" role="tablist"><button type="button" class="mode on" id="mChat" role="tab">Chat</button><button type="button" class="mode" id="mTalk" role="tab">Talk to Zuri</button></div>
+      <div class="modes" role="tablist"><button type="button" class="mode on" id="mChat" role="tab">Chat</button><button type="button" class="mode" id="mTalk" role="tab">Talk to Luna</button></div>
       <div class="log" id="log" aria-live="polite"></div>
       <div class="typing" id="typing"></div>
       <div class="chips" id="chips"></div>
-      <div class="cta" id="cta">Like what you see? <a id="ctaLink" href="#" target="_blank" rel="noopener">Book a free demo</a> and we'll put Zuri on your phone line too.</div>
+      <div class="cta" id="cta">Like what you see? <a id="ctaLink" href="#" target="_blank" rel="noopener">Book a free demo</a> and we'll put Luna on your phone line too.</div>
       <div class="talk" id="talk">
-        <button type="button" class="mic" id="mic" aria-label="Talk to Zuri"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+        <button type="button" class="mic" id="mic" aria-label="Talk to Luna"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
         <div class="talkstate" id="talkstate">Tap the mic and talk, like you're calling the salon.</div>
       </div>
       <form class="send" id="sendForm">
@@ -127,12 +127,12 @@
     const url = $("site").value.trim();
     if (!url) return;
     $("go").disabled = true; $("status").className = "status";
-    const lines = ["Opening your website...", "Reading your services and prices...", "Learning your hours...", "Training Zuri..."];
+    const lines = ["Opening your website...", "Reading your services and prices...", "Learning your hours...", "Training Luna..."];
     let i = 0; $("status").textContent = lines[0];
     const tick = setInterval(() => { i = Math.min(i + 1, lines.length - 1); $("status").textContent = lines[i]; }, 2500);
     try {
       S = await post("/api/scan", { url });
-      $("biz").textContent = "Zuri at " + S.name;
+      $("biz").textContent = "Luna at " + S.name;
       $("sub").textContent = "AI receptionist · instant demo";
       $("start").style.display = "none"; $("chat").style.display = "flex"; $("restart").hidden = false;
       msgs = [{ role: "assistant", content: S.greeting }]; add("assistant", S.greeting);
@@ -148,7 +148,7 @@
     if (!text || busy || !S) return;
     busy = true; $("sendBtn").disabled = true; $("chips").innerHTML = "";
     add("user", text); msgs.push({ role: "user", content: text }); $("text").value = "";
-    $("typing").textContent = "Zuri is typing...";
+    $("typing").textContent = "Luna is typing...";
     try {
       const r = await post("/api/chat", { profile: S.profile, exp: S.exp, token: S.token, messages: msgs.slice(-16) });
       msgs.push({ role: "assistant", content: r.reply }); add("assistant", r.reply);
@@ -178,7 +178,7 @@
   function play(b64, mime, then) {
     stopAudio();
     const a = new Audio("data:" + (mime || "audio/mpeg") + ";base64," + b64);
-    V.audio = a; tstate("speaking", "Zuri is talking... tap to interrupt");
+    V.audio = a; tstate("speaking", "Luna is talking... tap to interrupt");
     a.onended = () => { V.audio = null; then && then(); };
     a.onerror = () => { V.audio = null; then && then(); };
     a.play().catch(() => { V.audio = null; tstate("idle", "Tap the mic to talk."); });
@@ -186,7 +186,7 @@
   function stopAudio() { if (V.audio) { try { V.audio.pause(); } catch (e) {} V.audio = null; } }
   function stopAll() { stopAudio(); stopRec(false); tstate("idle", "Tap the mic and talk, like you're calling the salon."); }
   async function greetAloud() {
-    tstate("thinking", "Connecting you to Zuri...");
+    tstate("thinking", "Connecting you to Luna...");
     try {
       const r = await post("/api/greet", { profile: S.profile, exp: S.exp, token: S.token, voice: VOICE });
       play(r.audio, r.mime, () => listen());
@@ -196,7 +196,7 @@
     if (busy) return;
     try {
       V.stream = V.stream || await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: true, noiseSuppression: true, autoGainControl: true } });
-    } catch (e) { tstate("idle", "Please allow the microphone to talk to Zuri, or use Chat."); return; }
+    } catch (e) { tstate("idle", "Please allow the microphone to talk to Luna, or use Chat."); return; }
     const AC = window.AudioContext || window.webkitAudioContext;
     V.ctx = V.ctx || new AC();
     if (V.ctx.state === "suspended") await V.ctx.resume();
@@ -226,7 +226,7 @@
     V.chunks = [];
   }
   async function sendVoice(b64) {
-    busy = true; tstate("thinking", "Zuri is thinking...");
+    busy = true; tstate("thinking", "Luna is thinking...");
     try {
       const r = await post("/api/voice", { profile: S.profile, exp: S.exp, token: S.token, messages: msgs.slice(-16), audio: b64, voice: VOICE });
       if (r.heard) { add("user", r.heard); msgs.push({ role: "user", content: r.heard }); }

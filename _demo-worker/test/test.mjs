@@ -25,7 +25,7 @@ assert(W.jsonLd(home).includes("Mo-Su 09:00-19:00"));
 let r = await W.scan(req({ url: "glownails.com" }), env, deps);
 let j = await r.json();
 assert.equal(r.status, 200, JSON.stringify(j));
-assert.equal(j.name, "Glow Nails"); assert(j.greeting.includes("Zuri at Glow Nails")); assert(j.token && j.exp > Date.now());
+assert.equal(j.name, "Glow Nails"); assert(j.greeting.includes("Luna at Glow Nails")); assert(j.token && j.exp > Date.now());
 assert(seen[1].content.includes("Gel Manicure") && seen[1].content.includes("Structured business data"));
 // chat ok
 r = await W.chat(req({ profile: j.profile, exp: j.exp, token: j.token, messages: [{ role: "assistant", content: j.greeting }, { role: "user", content: "gel mani price?" }] }), env, deps);
@@ -57,7 +57,7 @@ r = await W.voice(req({ profile: j.profile, exp: j.exp, token: j.token, audio: "
 assert(v.reply.includes("didn't catch")); assert.equal(v.heard, "");
 r = await W.voice(req({ profile: j.profile + "x", exp: j.exp, token: j.token, audio: "QUJD" }), env, vd); assert.equal(r.status, 401);
 r = await W.voice(req({ profile: j.profile, exp: j.exp, token: j.token, audio: "A".repeat(900000) }), env, vd); assert.equal(r.status, 400);
-assert.equal(W.pickVoice({}, "AMBER"), "thalia"); assert.equal(W.pickVoice({ DEMO_VOICE: "athena" }, ""), "athena"); assert.equal(W.pickVoice({}, "Luna"), "luna");
+assert.equal(W.pickVoice({}, "AMBER"), "luna"); assert.equal(W.pickVoice({ DEMO_VOICE: "athena" }, ""), "athena"); assert.equal(W.pickVoice({}, "Luna"), "luna");
 r = await W.greet(req({ profile: j.profile, exp: j.exp, token: j.token }), env, vd); v = await r.json();
 assert(v.text.includes("Glow Nails") && v.audio === "TVAz");
 // speak() normalises a ReadableStream from Workers AI into base64
