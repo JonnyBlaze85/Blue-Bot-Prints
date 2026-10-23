@@ -161,7 +161,7 @@
 
   // ---------------------------------------------------------------- voice
   const VOICE = (new URLSearchParams(location.search).get("voice") || "").toLowerCase();
-  const V = { on: false, state: "idle", stream: null, ctx: null, proc: null, chunks: [], audio: null, greeted: false };
+  const V = { on: false, state: "idle", stream: null, ctx: null, proc: null, chunks: [], audio: null, greeted: false, micError: "" };
   function setMode(talk) {
     $("mChat").classList.toggle("on", !talk); $("mTalk").classList.toggle("on", talk);
     $("sendForm").style.display = talk ? "none" : "flex"; $("chips").style.display = talk ? "none" : "flex";
@@ -170,20 +170,40 @@
     else if (!V.greeted) { V.greeted = true; greetAloud(); }
   }
   $("mChat").onclick = () => setMode(false);
-  $("mTalk").onclick = () => setMode(true);
+  $("mTalk").onclick = async () => { await unlock(); setMode(true); };
+  /** Phones only allow sound and the microphone from inside a tap: open both here, once. */
+  async function unlock() {
+    const AC = window.AudioContext || window.webkitAudioContext;
+    try { V.ctx = V.ctx || new AC(); if (V.ctx.state !== "running") await V.ctx.resume(); } catch (e) {}
+    if (!V.stream) {
+      try { V.stream = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: true, noiseSuppression: true, autoGainControl: true } }); }
+      catch (e) { V.micError = e && e.name === "NotAllowedError" ? "Microphone blocked. Allow it for this site in your browser settings, or use Chat." : "No microphone found. You can still use Chat."; }
+    }
+  }
   function tstate(st, text) {
     V.state = st; $("talkstate").textContent = text;
     $("mic").classList.toggle("listening", st === "listening"); $("mic").classList.toggle("busy", st === "thinking" || st === "speaking");
   }
-  function play(b64, mime, then) {
+  async function play(b64, mime, then) {
     stopAudio();
-    const a = new Audio("data:" + (mime || "audio/mpeg") + ";base64," + b64);
-    V.audio = a; tstate("speaking", "Luna is talking... tap to interrupt");
-    a.onended = () => { V.audio = null; then && then(); };
-    a.onerror = () => { V.audio = null; then && then(); };
-    a.play().catch(() => { V.audio = null; tstate("idle", "Tap the mic to talk."); });
+    tstate("speaking", "Luna is talking... tap the mic to interrupt");
+    const done = () => { V.audio = null; then && then(); };
+    try {
+      if (!V.ctx) throw new Error("no audio context");
+      if (V.ctx.state !== "running") await V.ctx.resume();
+      const bytes = Uint8Array.from(atob(b64), (c) => c.charCodeAt(0));
+      const buf = await V.ctx.decodeAudioData(bytes.buffer);
+      const src = V.ctx.createBufferSource(); src.buffer = buf; src.connect(V.ctx.destination);
+      V.audio = { stop: () => { src.onended = null; try { src.stop(); } catch (e) {} } };
+      src.onended = done; src.start();
+    } catch (e) {
+      const a = new Audio("data:" + (mime || "audio/mpeg") + ";base64," + b64);
+      V.audio = { stop: () => { a.onended = null; try { a.pause(); } catch (x) {} } };
+      a.onended = done; a.onerror = done;
+      a.play().catch(() => { V.audio = null; tstate("idle", "Tap the mic to talk."); });
+    }
   }
-  function stopAudio() { if (V.audio) { try { V.audio.pause(); } catch (e) {} V.audio = null; } }
+  function stopAudio() { if (V.audio) { try { V.audio.stop(); } catch (e) {} V.audio = null; } }
   function stopAll() { stopAudio(); stopRec(false); tstate("idle", "Tap the mic and talk, like you're calling the salon."); }
   async function greetAloud() {
     tstate("thinking", "Connecting you to Luna...");
@@ -194,12 +214,9 @@
   }
   async function listen() {
     if (busy) return;
-    try {
-      V.stream = V.stream || await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: true, noiseSuppression: true, autoGainControl: true } });
-    } catch (e) { tstate("idle", "Please allow the microphone to talk to Luna, or use Chat."); return; }
-    const AC = window.AudioContext || window.webkitAudioContext;
-    V.ctx = V.ctx || new AC();
-    if (V.ctx.state === "suspended") await V.ctx.resume();
+    if (!V.stream || !V.ctx) await unlock();
+    if (!V.stream) { tstate("idle", V.micError || "Please allow the microphone to talk to Luna, or use Chat."); return; }
+    if (V.ctx.state !== "running") { try { await V.ctx.resume(); } catch (e) {} }
     const src = V.ctx.createMediaStreamSource(V.stream);
     const proc = V.ctx.createScriptProcessor(4096, 1, 1);
     V.chunks = []; V.proc = proc; V.src = src;
@@ -236,7 +253,8 @@
       play(r.audio, r.mime, () => { if ($("talk").style.display !== "none") listen(); });
     } catch (err) { busy = false; tstate("idle", err.message); }
   }
-  $("mic").onclick = () => {
+  $("mic").onclick = async () => {
+    await unlock();
     if (V.state === "speaking") { stopAudio(); listen(); }
     else if (V.state === "listening") stopRec(true);
     else if (V.state === "idle") listen();
