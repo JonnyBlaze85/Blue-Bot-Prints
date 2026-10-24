@@ -180,6 +180,18 @@ footer nav { display: flex; gap: 22px; flex-wrap: wrap; } footer a { text-decora
   .mascot { width: 84px; top: -54px; }
   form { padding: 24px; }
 }
+
+/* missed-call calculator */
+.mc { display: grid; grid-template-columns: 1.1fr .9fr; gap: 28px; align-items: stretch; }
+.mc-form { background: var(--paper-2); border: 1px solid var(--rule); border-radius: 26px; padding: 30px; display: grid; gap: 18px; grid-template-columns: repeat(2, minmax(0, 1fr)); align-content: start; }
+.mc-form label { display: grid; gap: 6px; font-weight: 700; font-size: 15px; }
+.mc-form label small { font-weight: 500; color: var(--muted); font-size: 13.5px; }
+.mc-form input { font: 600 18px var(--body); padding: 12px 14px; border: 1.5px solid var(--rule); border-radius: 12px; color: var(--ink); background: var(--paper); min-width: 0; width: 100%; }
+.mc-out { background: var(--navy); color: #fff; border-radius: 26px; padding: 30px; display: grid; gap: 10px; align-content: center; }
+.mc-out .big { font: 800 clamp(42px, 6vw, 64px)/1 var(--disp); color: var(--gold); letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
+.mc-out p { color: #C4CDEB; font-size: 16px; }
+.mc-out .btn { margin-top: 10px; justify-self: start; }
+@media (max-width: 860px) { .mc { grid-template-columns: 1fr; } .mc-form { grid-template-columns: 1fr; padding: 22px; } .mc-out { padding: 24px; } }
 </style>
 </head>
 <body>
@@ -287,6 +299,28 @@ footer nav { display: flex; gap: 22px; flex-wrap: wrap; } footer a { text-decora
         <p style="margin-top:18px">Want it on your real phone line? <a href="https://api.leadconnectorhq.com/widget/booking/xDjkqBIZWFMZK0GraFlw" target="_blank" rel="noopener" style="color:var(--blue);font-weight:700">Book a free call demo &rarr;</a></p>
       </div>
       <iframe id="demoFrame" src="https://bbp-demo.jblazzinc.workers.dev" title="Instant AI receptionist demo" loading="lazy" allow="microphone; autoplay; clipboard-write"></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- MISSED-CALL CALCULATOR -->
+<section class="sec paper" id="calculator">
+  <div class="wrap">
+    <div class="sec-head"><div class="eyebrow">Your numbers, not ours</div><h2>What do missed calls cost your business?</h2><p class="lead">Type what a normal week looks like. The starting numbers are examples; change every box.</p></div>
+    <div class="mc">
+      <form class="mc-form" id="mcForm" onsubmit="return false">
+        <label for="mc-missed">Calls you miss on a typical open day<small>Mid-service, busy hours, after close</small><input id="mc-missed" type="number" inputmode="numeric" min="0" step="1" value="5"></label>
+        <label for="mc-rate">Out of 10 of those callers, how many would have booked?<small>Your best guess</small><input id="mc-rate" type="number" inputmode="numeric" min="0" max="10" step="1" value="4"></label>
+        <label for="mc-ticket">Average sale or visit ($)<small>What a typical customer pays</small><input id="mc-ticket" type="number" inputmode="decimal" min="0" step="1" value="60"></label>
+        <label for="mc-days">Days open per month<small>Days you take calls</small><input id="mc-days" type="number" inputmode="numeric" min="0" max="31" step="1" value="26"></label>
+      </form>
+      <div class="mc-out" aria-live="polite">
+        <div class="eyebrow" style="color:var(--gold)">Bookings that may slip away each month</div>
+        <div class="big" id="mc-loss">$0</div>
+        <p><b id="mc-bk">0</b> appointments a month, based on the numbers you typed. An estimate, not a promise of results.</p>
+        <p id="mc-cover"></p>
+        <a class="btn btn-gold" href="#try">Hear it answer your phone</a>
+      </div>
     </div>
   </div>
 </section>
@@ -404,6 +438,24 @@ footer nav { display: flex; gap: 22px; flex-wrap: wrap; } footer a { text-decora
     f.src = "https://bbp-demo.jblazzinc.workers.dev/?site=" + encodeURIComponent(site.slice(0, 200));
     setTimeout(function () { document.getElementById("try").scrollIntoView({ behavior: "smooth" }); }, 400);
   }
+})();
+</script>
+<script>
+/* Missed-call calculator: uses only the numbers the visitor types */
+(function () {
+  var ids = ["missed", "rate", "ticket", "days"], el = {};
+  ids.forEach(function (i) { el[i] = document.getElementById("mc-" + i); });
+  if (!el.missed) return;
+  var fmt = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 });
+  function n(x) { var v = parseFloat(x.value); return isFinite(v) && v > 0 ? v : 0; }
+  function calc() {
+    var bookings = n(el.missed) * n(el.days) * Math.min(n(el.rate), 10) / 10, t = n(el.ticket);
+    document.getElementById("mc-loss").textContent = fmt.format(bookings * t);
+    document.getElementById("mc-bk").textContent = Math.round(bookings).toLocaleString("en-US");
+    document.getElementById("mc-cover").textContent = t > 0 ? "Plans start at $197 a month: about " + Math.ceil(197 / t) + " recovered visits covers the smallest one." : "";
+  }
+  ids.forEach(function (i) { el[i].addEventListener("input", calc); });
+  calc();
 })();
 </script>
 </body>
