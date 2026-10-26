@@ -69,4 +69,40 @@ assert.equal(await W.hear(hEnv, "QUJD"), "hi there"); assert.equal(calls.length,
 assert(W.hearingHint("Business name: Top Nails LLC\nType: nail salon").includes("Top Nails LLC"));
 let seenInput; const hEnv2 = { AI: { run: async (m, i) => { seenInput = i; return { text: "ok" }; } } };
 await W.hear(hEnv2, "QUJD", {}, "HINT"); assert.equal(seenInput.initial_prompt, "HINT");
+// demo views: counted per salon host, never for previews, no-op without KV, read only with the secret
+const mem = new Map();
+const kv = { get: async (k) => mem.get(k) ?? null, put: async (k, v) => { mem.set(k, v); }, list: async ({ prefix }) => ({ keys: [...mem.keys()].filter((k) => k.startsWith(prefix)).map((name) => ({ name })) }) };
+const kd = { ...deps, kv };
+let rv = await W.scan(req({ url: "glownails.com", via: "link" }), env, kd); let jv = await rv.json();
+assert(jv.profile.startsWith("Website: glownails.com\n"), jv.profile.slice(0, 40));
+assert.equal(jv.name, "Glow Nails");
+let rec = JSON.parse(mem.get("h:glownails.com")); assert.equal(rec.scan, 1); assert.equal(rec.link, 1); assert(rec.first && rec.last);
+await W.chat(req({ profile: jv.profile, exp: jv.exp, token: jv.token, messages: [{ role: "user", content: "hi" }] }), env, kd);
+await W.chat(req({ profile: jv.profile, exp: jv.exp, token: jv.token, messages: [{ role: "user", content: "hi again" }] }), env, kd);
+rec = JSON.parse(mem.get("h:glownails.com")); assert.equal(rec.chat, 2);
+await W.voice(req({ profile: jv.profile, exp: jv.exp, token: jv.token, audio: "QUJD" }), env, { ...vd, kv });
+rec = JSON.parse(mem.get("h:glownails.com")); assert.equal(rec.voice, 1);
+rv = await W.scan(req({ url: "glownails.com", via: "typed" }), env, kd); await rv.json();
+rec = JSON.parse(mem.get("h:glownails.com")); assert.equal(rec.scan, 2); assert.equal(rec.link, 1);
+mem.clear();
+rv = await W.scan(req({ url: "https://glownails.com/", via: "preview" }), env, kd); jv = await rv.json();
+assert(jv.profile.startsWith("Website: glownails.com preview\n")); assert.equal(mem.size, 0);
+await W.chat(req({ profile: jv.profile, exp: jv.exp, token: jv.token, messages: [{ role: "user", content: "hi" }] }), env, kd); assert.equal(mem.size, 0);
+assert.equal(jv.name, "Glow Nails");
+rv = await W.scan(req({ url: "glownails.com" }), env, kd); await rv.json(); assert.deepEqual([...mem.keys()], ["h:glownails.com"]);
+// no KV: demo works, nothing stored, no error
+rv = await W.scan(req({ url: "glownails.com", via: "link" }), env, deps); assert.equal(rv.status, 200);
+await W.track({}, {}, "x.com", "scan"); await W.track({ VIEWS: { get: async () => { throw new Error("kv down"); } } }, {}, "x.com", "scan");
+await W.track(env, { kv }, "../evil", "scan"); await W.track(env, { kv }, "nodots", "scan"); assert(!mem.has("h:../evil") && !mem.has("h:nodots"));
+assert.deepEqual(W.siteOf("Website: a.com\nBusiness name: A"), { host: "a.com", preview: false });
+assert.equal(W.siteOf("Business name: A"), null);
+// /api/views: hidden without a key or KV, 401 on a wrong key, list on the right one
+const vreq = (k) => new Request("https://x/api/views", { headers: k ? { "x-views-key": k } : {} });
+assert.equal((await W.views(vreq("k"), env, { kv })).status, 404);
+assert.equal((await W.views(vreq("k"), { ...env, VIEWS_KEY: "sekret" }, {})).status, 404);
+assert.equal((await W.views(vreq(), { ...env, VIEWS_KEY: "sekret" }, { kv })).status, 401);
+assert.equal((await W.views(vreq("sekreT"), { ...env, VIEWS_KEY: "sekret" }, { kv })).status, 401);
+let lv = await W.views(vreq("sekret"), { ...env, VIEWS_KEY: "sekret" }, { kv }); assert.equal(lv.status, 200);
+let sites = (await lv.json()).sites; assert.equal(sites.length, 1); assert.equal(sites[0].host, "glownails.com"); assert(sites[0].scan >= 1);
+assert.equal((await W.default.fetch(vreq("sekret"), env, {})).status, 404);
 console.log("ALL TESTS PASSED");

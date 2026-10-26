@@ -10,3 +10,15 @@ A salon owner types their website; the worker reads up to 5 pages, builds a sign
 - The underscore keeps this folder out of the GitHub Pages website.
 
 Connected to Cloudflare Workers Builds on Oct 22, 2026 (root directory /_demo-worker).
+
+## Demo view counter (optional)
+
+Tells Jarvis when a salon opens its personal demo link (`?site=their-site.com`).
+Stores only the salon's website host plus counters (scans, link opens, chats, voice turns) and first/last time. No names, IPs or chat text. Expires after 90 days.
+
+1. Cloudflare dashboard > Storage & Databases > KV > Create a namespace (name it `bbp-demo-views`).
+2. Workers & Pages > bbp-demo > Settings > Bindings > Add > KV namespace: variable name `VIEWS`, pick that namespace.
+3. Settings > Variables and Secrets > Add secret `VIEWS_KEY` (any long random string).
+4. Read it: `GET /api/views` with header `x-views-key: <your key>`.
+
+Without the binding everything works as before and nothing is counted. Opening a demo with `&preview=1` (Jonny checking his own link) is never counted.

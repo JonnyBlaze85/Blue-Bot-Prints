@@ -134,7 +134,7 @@
     let i = 0; $("status").textContent = lines[0];
     const tick = setInterval(() => { i = Math.min(i + 1, lines.length - 1); $("status").textContent = lines[i]; }, 2500);
     try {
-      S = await post("/api/scan", { url });
+      S = await post("/api/scan", { url, via: VIA });
       $("biz").textContent = "Luna at " + S.name;
       $("sub").textContent = "AI receptionist · instant demo";
       $("start").style.display = "none"; $("chat").style.display = "flex"; $("restart").hidden = false;
@@ -163,6 +163,7 @@
   $("restart").addEventListener("click", (e) => { e.preventDefault(); location.href = location.pathname; });
   // Personal demo links: ?site=theirsalon.com opens straight into their own receptionist (used in outreach)
   const preset = (new URLSearchParams(location.search).get("site") || "").trim().slice(0, 200);
+  const VIA = new URLSearchParams(location.search).get("preview") ? "preview" : preset ? "link" : "typed";
   if (preset) { $("site").value = preset; setTimeout(() => $("scanForm").requestSubmit ? $("scanForm").requestSubmit() : $("go").click(), 300); }
 
   // ---------------------------------------------------------------- voice

@@ -29,6 +29,7 @@ const HANDLER = {
                      "content-security-policy": "frame-ancestors *" },
         });
       }
+      if (req.method === "GET" && url.pathname === "/api/views") return await views(req, env);
       if (req.method === "OPTIONS") return cors(new Response(null, { status: 204 }), req, env);
       if (req.method === "POST" && url.pathname === "/api/scan") return cors(await scan(req, env), req, env);
       if (req.method === "POST" && url.pathname === "/api/chat") return cors(await chat(req, env), req, env);
@@ -72,9 +73,14 @@ export async function scan(req, env, deps = {}) {
   if (!profile || /^NOT_A_BUSINESS/i.test(profile)) return json({ error: "I couldn't find business details on that site. Try your main website address." }, 422);
 
   const name = (profile.match(/^Business name:\s*(.+)$/im) || [])[1]?.trim() || guessName;
+  // Which salon this demo is for (host only, no page content) rides inside the signed profile, so chat/voice can be counted without any lookup.
+  const host = new URL(start).hostname.replace(/^www\./, "");
+  const via = body.via === "link" ? "link" : body.via === "preview" ? "preview" : "typed";
+  const marked = `Website: ${host}${via === "preview" ? " preview" : ""}\n${profile}`;
   const exp = Date.now() + LIMITS.profileHours * 3600_000;
-  const token = await sign(env, `${exp}.${profile}`);
-  return json({ name, profile, exp, token, greeting: `Hi! This is Luna at ${name}. How can I help you today?` });
+  const token = await sign(env, `${exp}.${marked}`);
+  if (via !== "preview") await track(env, deps, host, "scan", via);
+  return json({ name, profile: marked, exp, token, greeting: `Hi! This is Luna at ${name}. How can I help you today?` });
 }
 
 // ------------------------------------------------------------------ chat
@@ -93,6 +99,7 @@ export async function chat(req, env, deps = {}) {
   if (!clean.length || clean[clean.length - 1].role !== "user") return json({ error: "Say something first." }, 400);
   const ask = deps.llm || llm;
   const reply = (await ask(env, [{ role: "system", content: chatPrompt(profile) }, ...clean], LIMITS.replyTokens)).trim();
+  await trackProfile(env, deps, profile, "chat");
   return json({ reply: reply || "Sorry, could you say that again?" });
 }
 
@@ -169,6 +176,7 @@ export async function voice(req, env, deps = {}) {
   const b = await req.json().catch(() => ({}));
   const profile = await session(b, env);
   if (!profile) return json({ error: "This demo has expired. Please enter your website again." }, 401);
+  await trackProfile(env, deps, profile, "voice");
   const audio = String(b.audio || "");
   if (!audio || audio.length > LIMITS.audioB64) return json({ error: "That recording was too long. Try a shorter question." }, 400);
   const name = pickVoice(env, b.voice);
@@ -401,6 +409,55 @@ async function allow(env, deps, kind, ip, max) {
     await cache.put(key, new Response(String(n + 1), { headers: { "cache-control": "max-age=3700" } }));
     return true;
   } catch { return true; }
+}
+
+// ------------------------------------------------------------------ demo views (Oct 26): which salons opened their personal demo
+// Stores only the salon's website host and counters (scans, link opens, chats, voice turns) plus first/last time: no names, no IPs, no chat text.
+// Needs the KV binding VIEWS (see README). Without it everything here quietly does nothing. Read it with GET /api/views and the secret header x-views-key.
+const HOST_RE = /^[a-z0-9][a-z0-9.-]{1,98}[a-z0-9]$/;
+
+export async function track(env, deps, host, kind, via) {
+  try {
+    const kv = deps.kv || env.VIEWS;
+    if (!kv || !HOST_RE.test(host || "") || !host.includes(".")) return;
+    const key = "h:" + host;
+    const cur = JSON.parse((await kv.get(key)) || "{}");
+    const now = Date.now();
+    cur.first = cur.first || now; cur.last = now;
+    cur[kind] = (cur[kind] || 0) + 1;
+    if (via === "link") cur.link = (cur.link || 0) + 1;
+    await kv.put(key, JSON.stringify(cur), { expirationTtl: 90 * 86400 });
+  } catch { /* counting must never break a demo */ }
+}
+
+export function siteOf(profile) {
+  const m = String(profile || "").match(/^Website:\s*(\S+)( preview)?/m);
+  return m ? { host: m[1], preview: !!m[2] } : null;
+}
+
+async function trackProfile(env, deps, profile, kind) {
+  const s = siteOf(profile);
+  if (s && !s.preview) await track(env, deps, s.host, kind);
+}
+
+function sameSecret(a, b) {
+  if (a.length !== b.length) return false;
+  let d = 0;
+  for (let i = 0; i < a.length; i++) d |= a.charCodeAt(i) ^ b.charCodeAt(i);
+  return d === 0;
+}
+
+export async function views(req, env, deps = {}) {
+  const key = String(env.VIEWS_KEY || ""), kv = deps.kv || env.VIEWS;
+  if (!key || !kv) return new Response("Not found", { status: 404 });
+  if (!sameSecret(req.headers.get("x-views-key") || "", key)) return json({ error: "No." }, 401);
+  const list = await kv.list({ prefix: "h:", limit: 200 });
+  const sites = [];
+  for (const k of list.keys || []) {
+    const v = JSON.parse((await kv.get(k.name)) || "{}");
+    sites.push({ host: k.name.slice(2), ...v });
+  }
+  return json({ sites });
 }
 
 export default HANDLER;
