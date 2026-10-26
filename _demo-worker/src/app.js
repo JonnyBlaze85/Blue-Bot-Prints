@@ -50,6 +50,11 @@ export async function scan(req, env, deps = {}) {
   const start = cleanUrl(body.url);
   if (!start) return json({ error: "Please type your salon's website, like topnailsnv.com" }, 400);
 
+  // Count the open first, so a salon whose site we cannot read (blocked, down) still shows up as "opened their link".
+  const host = new URL(start).hostname.replace(/^www\./, "");
+  const via = body.via === "link" ? "link" : body.via === "preview" ? "preview" : "typed";
+  if (via !== "preview") await track(env, deps, host, "scan", via);
+
   const get = deps.fetchPage || fetchPage;
   const first = await get(start);
   if (!first) return json({ error: "I couldn't open that website. Check the address and try again." }, 400);
@@ -74,12 +79,9 @@ export async function scan(req, env, deps = {}) {
 
   const name = (profile.match(/^Business name:\s*(.+)$/im) || [])[1]?.trim() || guessName;
   // Which salon this demo is for (host only, no page content) rides inside the signed profile, so chat/voice can be counted without any lookup.
-  const host = new URL(start).hostname.replace(/^www\./, "");
-  const via = body.via === "link" ? "link" : body.via === "preview" ? "preview" : "typed";
   const marked = `Website: ${host}${via === "preview" ? " preview" : ""}\n${profile}`;
   const exp = Date.now() + LIMITS.profileHours * 3600_000;
   const token = await sign(env, `${exp}.${marked}`);
-  if (via !== "preview") await track(env, deps, host, "scan", via);
   return json({ name, profile: marked, exp, token, greeting: `Hi! This is Luna at ${name}. How can I help you today?` });
 }
 

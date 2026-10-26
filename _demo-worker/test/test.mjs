@@ -90,6 +90,12 @@ assert(jv.profile.startsWith("Website: glownails.com preview\n")); assert.equal(
 await W.chat(req({ profile: jv.profile, exp: jv.exp, token: jv.token, messages: [{ role: "user", content: "hi" }] }), env, kd); assert.equal(mem.size, 0);
 assert.equal(jv.name, "Glow Nails");
 rv = await W.scan(req({ url: "glownails.com" }), env, kd); await rv.json(); assert.deepEqual([...mem.keys()], ["h:glownails.com"]);
+// an unreadable site still counts as an opened link
+mem.clear();
+rv = await W.scan(req({ url: "unreadable-salon.com", via: "link" }), env, kd); assert.equal(rv.status, 400);
+assert.equal(JSON.parse(mem.get("h:unreadable-salon.com")).link, 1);
+rv = await W.scan(req({ url: "unreadable-salon.com", via: "preview" }), env, kd); assert.equal(JSON.parse(mem.get("h:unreadable-salon.com")).link, 1);
+mem.clear(); rv = await W.scan(req({ url: "glownails.com", via: "link" }), env, kd); await rv.json();
 // no KV: demo works, nothing stored, no error
 rv = await W.scan(req({ url: "glownails.com", via: "link" }), env, deps); assert.equal(rv.status, 200);
 await W.track({}, {}, "x.com", "scan"); await W.track({ VIEWS: { get: async () => { throw new Error("kv down"); } } }, {}, "x.com", "scan");
