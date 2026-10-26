@@ -6,6 +6,10 @@ workers_dev = true
 [ai]
 binding = "AI"
 
+[[kv_namespaces]]
+binding = "VIEWS"
+id = "21b77ab1913e497fb8a1e2985b919f72"
+
 [vars]
 DEMO_VOICE = "luna"
 
