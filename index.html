@@ -218,7 +218,7 @@ footer nav { display: flex; gap: 22px; flex-wrap: wrap; } footer a { text-decora
     <div class="nav">
       <a class="brand" href="#top"><svg width="44" height="44" viewBox="10 14 220 220" role="img" aria-label="Blue Bot Prints logo"><use href="#bot"/></svg>Blue Bot Prints</a>
       <nav aria-label="Main">
-        <a href="#how">How it works</a><a href="#features">Features</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a>
+        <a href="#how">How it works</a><a href="#features">Features</a><a href="#university">Bot University</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a>
         <a class="btn btn-gold" href="#try">Try it free</a>
       </nav>
     </div>
@@ -228,7 +228,7 @@ footer nav { display: flex; gap: 22px; flex-wrap: wrap; } footer a { text-decora
         <h1 style="margin-top:18px">Never miss another call. <span class="gold">Your AI voice agent picks up.</span></h1>
         <p class="lead">Blue Bot Prints builds AI voice agents that answer your phone around the clock, book appointments, answer common questions and send you a clear summary of every call, in your business's own voice.</p>
         <div class="ctas"><a class="btn btn-gold" href="#try">Try it on your website</a><a class="btn btn-ghost" href="https://api.leadconnectorhq.com/widget/booking/xDjkqBIZWFMZK0GraFlw" target="_blank" rel="noopener">Book a call demo</a></div>
-        <div class="meta">From $197/mo &middot; <b class="gold">Launch offer: free 7-day trial for our first 20 clients</b> &middot; No contract</div>
+        <div class="meta">From $97/mo &middot; <b class="gold">Launch offer: free 7-day trial for our first 20 clients</b> &middot; No contract</div>
       </div>
       <div class="call" aria-label="Sample phone conversation with an AI voice agent">
         <svg class="mascot" viewBox="10 14 220 220" aria-hidden="true"><use href="#bot"/></svg>
@@ -248,7 +248,7 @@ footer nav { display: flex; gap: 22px; flex-wrap: wrap; } footer a { text-decora
   <div class="wrap proof">
     <div><b>24/7</b><span>Every call answered, day or night</span></div>
     <div><b>Try it now</b><span>Meet your own AI receptionist in 20 seconds</span></div>
-    <div><b>7 days free</b><span>Try any plan free for 7 days, then from $197/mo</span></div>
+    <div><b>7 days free</b><span>Try any plan free for 7 days, then from $97/mo</span></div>
   </div>
 </section>
 
@@ -280,6 +280,18 @@ footer nav { display: flex; gap: 22px; flex-wrap: wrap; } footer a { text-decora
 </section>
 
 <!-- INDUSTRIES -->
+<section class="sec paper" id="university">
+  <div class="wrap">
+    <div class="sec-head"><div class="eyebrow">Bot University</div><h2>Every receptionist goes to school before she answers your phone</h2><p>We don't switch an AI on and hope. Each one is trained on your salon's own information, then tested with tough practice calls, and graded on a scorecard you can read. She only goes live after she passes.</p></div>
+    <div class="cards">
+      <div class="card"><h3>1. She learns your business</h3><p>Your services, prices, hours and rules. Anything we don't know becomes a question for you, never a guess.</p></div>
+      <div class="card"><h3>2. Practice calls</h3><p>A second AI plays tricky callers: rushed, upset, confused, health questions, other languages.</p></div>
+      <div class="card"><h3>3. A real scorecard</h3><p>Every practice call is graded, and any mistake like promising something you never approved fails the call.</p></div>
+      <div class="card"><h3>4. Pass, then go live</h3><p>You hear her yourself on a test call first. She starts answering real calls only after you're happy.</p></div>
+    </div>
+  </div>
+</section>
+
 <section class="sec blueprint dark">
   <div class="wrap split">
     <div style="display:grid;gap:16px"><div class="eyebrow">Who it's for</div><h2>Built for businesses that live on the phone</h2><p class="lead">If a missed call can mean a lost customer, an AI voice agent pays attention for you.</p></div>
@@ -355,7 +367,7 @@ footer nav { display: flex; gap: 22px; flex-wrap: wrap; } footer a { text-decora
   <div class="wrap">
     <div class="sec-head"><div class="eyebrow">Pricing</div><h2>Simple plans, no surprises</h2></div>
     <div class="plans">
-      <div class="plan"><h3>AI Website Chatbot</h3><div class="price">$197<small style="font:600 16px var(--body);color:var(--muted)"> /mo</small></div>
+      <div class="plan"><h3>AI Website Chatbot</h3><div class="price">$97<small style="font:600 16px var(--body);color:var(--muted)"> /mo</small></div>
         <ul><li>Answers website visitors 24/7</li><li>Knows your services, prices and hours</li><li>Takes booking requests and sends them to you</li><li>Try it free on this page</li></ul><a class="btn btn-line" href="#try">Try it now</a></div>
       <div class="plan"><h3>AI Voice Agent</h3><div class="price">From $197<small style="font:600 16px var(--body);color:var(--muted)"> /mo</small></div>
         <ul><li><b>$197</b> After-hours: answers when you're closed</li><li><b>$297</b> AI + your team: if your front desk misses a call, the AI picks up, so no call goes unanswered</li><li><b>$497</b> Full-time AI: every call, 24/7</li><li>Books appointments and sends you call summaries</li></ul><a class="btn btn-line" href="#contact">Start free trial</a></div>
@@ -452,7 +464,7 @@ footer nav { display: flex; gap: 22px; flex-wrap: wrap; } footer a { text-decora
     var bookings = n(el.missed) * n(el.days) * Math.min(n(el.rate), 10) / 10, t = n(el.ticket);
     document.getElementById("mc-loss").textContent = fmt.format(bookings * t);
     document.getElementById("mc-bk").textContent = Math.round(bookings).toLocaleString("en-US");
-    document.getElementById("mc-cover").textContent = t > 0 ? "Plans start at $197 a month: about " + Math.ceil(197 / t) + " recovered visits covers the smallest one." : "";
+    document.getElementById("mc-cover").textContent = t > 0 ? "Plans start at $97 a month: about " + Math.ceil(97 / t) + " recovered visits covers the smallest one." : "";
   }
   ids.forEach(function (i) { el[i].addEventListener("input", calc); });
   calc();
