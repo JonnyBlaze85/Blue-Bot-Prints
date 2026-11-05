@@ -4,13 +4,17 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Blue Bot Prints - AI Voice Agents &amp; Chatbots for Small Business</title>
-<meta name="description" content="Blue Bot Prints builds AI voice agents and chatbots that answer your customers 24/7, book appointments and send summaries. Try a free instant demo built from your own website.">
+<meta name="description" content="AI voice agents and chatbots that answer your calls 24/7, book appointments and send summaries. Built in Las Vegas. Try a free instant demo.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Blue Bot Prints - Never miss another call">
 <meta property="og:description" content="AI voice agents that answer your calls, book appointments and follow up, 24/7. Try a free instant demo built from your own website.">
 <meta property="og:image" content="https://bluebotprints.com/images/share-preview.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#1A2140">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Organization","name":"Blue Bot Prints","url":"https://bluebotprints.com/","logo":"https://bluebotprints.com/images/logo.png","email":"hello@bluebotprints.com","areaServed":["Las Vegas","Henderson","North Las Vegas"],"description":"AI voice agents and chatbots for small businesses, including nail salons."}
+</script>
 <link rel="canonical" href="https://bluebotprints.com/">
 <meta property="og:url" content="https://bluebotprints.com/">
 <link rel="icon" type="image/png" href="images/favicon.png">
@@ -422,6 +426,7 @@ footer nav { display: flex; gap: 22px; flex-wrap: wrap; } footer a { text-decora
         <input id="f-sms" type="checkbox" name="sms_consent" value="yes">
         <span>Optional: by checking this box, I agree to receive text messages from Blue Bot Prints about its services, demos and appointments at the mobile number I provided. Consent is not a condition of purchase. Message frequency varies. Message and data rates may apply. Reply STOP to opt out or HELP for help. See our <a href="privacy.html">Privacy Policy</a> and <a href="terms.html">Terms of Service</a>.</span>
       </label>
+      <input type="hidden" name="source" id="f-source" value="direct">
       <input type="hidden" name="_subject" value="New Blue Bot Prints request">
       <input type="hidden" name="_template" value="table">
       <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
@@ -436,10 +441,18 @@ footer nav { display: flex; gap: 22px; flex-wrap: wrap; } footer a { text-decora
   <div class="wrap">
     <a class="brand" href="#top" style="font-size:18px"><svg width="32" height="32" viewBox="10 14 220 220" aria-hidden="true"><use href="#bot"/></svg>Blue Bot Prints</a>
     <div>AI voice agents and chatbots for small business</div>
-    <nav aria-label="Legal"><a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms of Service</a></nav>
+    <nav aria-label="Legal"><a href="nail-salons-las-vegas.html">Nail salons in Las Vegas</a><a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms of Service</a></nav>
     <div>&copy; 2026 Blue Bot Prints</div>
   </div>
 </footer>
+<script>
+/* Lead source: ?src=dm-ig or ?utm_source=... is saved in the form so each request shows where it came from */
+(function () {
+  var q = new URLSearchParams(location.search), v = q.get("src") || q.get("utm_source") || document.referrer.split("/")[2] || "direct";
+  var f = document.getElementById("f-source");
+  if (f) f.value = v.slice(0, 60);
+})();
+</script>
 <script>
 /* Personal demo links: bluebotprints.com/?site=theirsalon.com opens the demo already trained on their website */
 (function () {
