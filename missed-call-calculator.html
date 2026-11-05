@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Missed Call Calculator for Nail Salons | Blue Bot Prints</title>
+<meta name="description" content="Free calculator: estimate what missed phone calls may cost your nail salon each month. Uses only your own numbers. Nothing is stored.">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://bluebotprints.com/missed-call-calculator.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="What are missed calls costing your salon?">
+<meta property="og:description" content="Free calculator: estimate what missed phone calls may cost your nail salon each month. Uses only your own numbers. Nothing is stored.">
+<meta property="og:image" content="https://bluebotprints.com/images/share-preview.jpg">
+<meta property="og:url" content="https://bluebotprints.com/missed-call-calculator.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#1A2140">
+<link rel="icon" type="image/png" href="images/favicon.png">
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&family=Manrope:wght@500;700&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "WebApplication",
+   "name": "Missed-call cost calculator for nail salons",
+   "applicationCategory": "BusinessApplication",
+   "operatingSystem": "Any",
+   "url": "https://bluebotprints.com/missed-call-calculator.html",
+   "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+   },
+   "creator": {
+    "@type": "Organization",
+    "name": "Blue Bot Prints"
+   }
+  },
+  {
+   "@type": "FAQPage",
+   "mainEntity": [
+    {
+     "@type": "Question",
+     "name": "How is the number calculated?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Calls you miss per open day, times days open per month, times the share of those callers who would have booked, times your average sale. It uses only the numbers you type."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Is this a promise of results?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "No. It is an estimate based on your own guesses. Your real numbers will differ."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "How many missed calls are normal for a salon?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "It varies a lot by salon. Count for a week, using your voicemail and missed-call log, and use that number."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Does this store my numbers?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "No. The calculation runs in your browser and nothing you type is sent anywhere."
+     }
+    }
+   ]
+  }
+ ]
+}
+</script>
+<style>
+:root{--navy:#1A2140;--deep:#11172E;--blue:#2F55D4;--gold:#F2B84B;--paper:#F4F7FF;--ink:#1A2140;--muted:#4E5775;--rule:#D8E0F5;--disp:"Bricolage Grotesque","Arial Black",system-ui,sans-serif;--body:"Manrope","Segoe UI",system-ui,sans-serif}
+*{box-sizing:border-box}
+body{margin:0;font:500 17px/1.65 var(--body);color:var(--ink);background:var(--paper)}
+a{color:var(--blue)}
+.wrap{max-width:860px;margin:0 auto;padding:0 20px}
+.top{background:var(--navy);padding:16px 0}
+.top a{color:#fff;text-decoration:none;font:800 20px var(--disp);display:inline-flex;align-items:center;gap:10px}
+.top img{border-radius:50%}
+.hero{background:var(--navy);color:#fff;padding:56px 0 64px}
+.eyebrow{font:500 12.5px ui-monospace,Consolas,monospace;letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
+h1,h2,h3{font-family:var(--disp);font-weight:800;letter-spacing:-.02em;margin:0;text-wrap:balance}
+h1{font-size:clamp(34px,6vw,56px);line-height:1.05;margin-top:14px}
+h2{font-size:clamp(26px,4vw,36px);line-height:1.12;margin-bottom:14px}
+h3{font-size:20px;font-weight:700;margin-bottom:6px}
+.hero p{color:#C4CDEB;font-size:19px;max-width:58ch;margin:18px 0 0}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:14px 28px;border-radius:999px;font:700 17px var(--body);text-decoration:none;margin:24px 12px 0 0}
+.btn-gold{background:var(--gold);color:var(--deep)}
+.btn-ghost{border:2px solid rgba(230,237,255,.5);color:#fff}
+.btn:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+section{padding:52px 0;border-bottom:1px solid var(--rule)}
+.grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));margin-top:20px}
+.card{background:#fff;border:1px solid var(--rule);border-radius:20px;padding:22px}
+.card p{margin:0;color:var(--muted)}
+details{background:#fff;border:1px solid var(--rule);border-radius:14px;padding:14px 18px;margin-bottom:10px}
+summary{font-weight:700;cursor:pointer}
+details p{margin:10px 0 0;color:var(--muted)}
+.cta{background:var(--navy);color:#fff;text-align:left;border-bottom:0}
+.cta p{color:#C4CDEB}
+.demo{background:#fff;border:1px solid var(--rule);border-radius:20px;padding:22px;margin-top:18px}
+footer{padding:28px 0;color:var(--muted);font-size:15px}
+footer a{margin-right:16px}
+@media(max-width:600px){section{padding:40px 0}.hero{padding:40px 0 48px}}
+.mc{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));margin-top:18px}
+.mc label{display:grid;gap:6px;font-weight:700;font-size:15px}.mc small{font-weight:500;color:var(--muted)}
+.mc input{font:600 18px var(--body);padding:12px 14px;border:1.5px solid var(--rule);border-radius:12px;width:100%;min-width:0}
+.out{background:var(--navy);color:#fff;border-radius:20px;padding:24px;margin-top:18px}
+.out .big{font:800 clamp(40px,8vw,60px)/1 var(--disp);color:var(--gold)}
+.out p{color:#C4CDEB;margin:8px 0 0}
+table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--rule);border-radius:14px;overflow:hidden}
+td,th{padding:12px 14px;border-bottom:1px solid var(--rule);text-align:left;vertical-align:top}
+th{background:#E6EDFF}
+.links a{margin-right:14px}
+</style>
+</head>
+<body>
+<div class="top"><div class="wrap"><a href="./"><img src="images/favicon.png" width="34" height="34" alt="">Blue Bot Prints</a></div></div>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Free tool &middot; no sign-up</div>
+    <h1>What are missed calls costing your nail salon?</h1>
+    <p>Type four numbers. You'll see an estimate of the bookings that may be slipping away each month. It's your own guess, not a promise.</p>
+  </div>
+</header>
+<main>
+<section><div class="wrap">
+  <div class="mc">
+    <label for="mc-missed">Calls you miss on a typical open day<small>Mid-service, busy hours, after close</small><input id="mc-missed" type="number" inputmode="numeric" min="0" step="1" value="5"></label>
+    <label for="mc-rate">Out of 10 of those callers, how many would have booked?<small>Your best guess</small><input id="mc-rate" type="number" inputmode="numeric" min="0" max="10" step="1" value="4"></label>
+    <label for="mc-ticket">Average sale or visit ($)<small>What a typical customer pays</small><input id="mc-ticket" type="number" inputmode="decimal" min="0" step="1" value="60"></label>
+    <label for="mc-days">Days open per month<small>Days you take calls</small><input id="mc-days" type="number" inputmode="numeric" min="0" max="31" step="1" value="26"></label>
+  </div>
+  <div class="out" role="status" aria-live="polite">
+    <div>Estimated bookings missed each month</div>
+    <div class="big" id="mc-loss">$0</div>
+    <p><b id="mc-bk">0</b> appointments a month, based on the numbers you typed. An estimate, not a promise of results.</p>
+    <p id="mc-cover"></p>
+    <a class="btn btn-gold" href="https://api.leadconnectorhq.com/widget/booking/xDjkqBIZWFMZK0GraFlw?src=calculator" rel="noopener">Book a free call demo</a>
+  </div>
+</div></section>
+<section><div class="wrap">
+  <h2>How an AI receptionist helps</h2>
+  <p>It answers calls when you can't, says it's an AI, uses only your own services, prices and hours, and saves booking requests for your team to confirm. See <a href="nail-salons-las-vegas.html">how it works for Las Vegas salons</a> or the <a href="ai-receptionist-pricing-nail-salons.html">pricing</a>.</p>
+</div></section>
+<section><div class="wrap">
+  <h2>About this calculator</h2>
+    <details><summary>How is the number calculated?</summary><p>Calls you miss per open day, times days open per month, times the share of those callers who would have booked, times your average sale. It uses only the numbers you type.</p></details>
+    <details><summary>Is this a promise of results?</summary><p>No. It is an estimate based on your own guesses. Your real numbers will differ.</p></details>
+    <details><summary>How many missed calls are normal for a salon?</summary><p>It varies a lot by salon. Count for a week, using your voicemail and missed-call log, and use that number.</p></details>
+    <details><summary>Does this store my numbers?</summary><p>No. The calculation runs in your browser and nothing you type is sent anywhere.</p></details>
+</div></section>
+</main>
+<footer>
+  <div class="wrap">
+    <a href="./">Home</a><a href="nail-salons-las-vegas.html">Las Vegas</a><a href="nail-salons-henderson.html">Henderson</a><a href="missed-call-calculator.html">Missed-call calculator</a><a href="ai-receptionist-pricing-nail-salons.html">Pricing</a><a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms of Service</a>
+    <div>&copy; 2026 Blue Bot Prints &middot; hello@bluebotprints.com</div>
+  </div>
+</footer>
+<script>
+(function () {
+  var ids = ["missed", "rate", "ticket", "days"], el = {};
+  ids.forEach(function (i) { el[i] = document.getElementById("mc-" + i); });
+  var fmt = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 });
+  function n(x) { var v = parseFloat(x.value); return isFinite(v) && v > 0 ? v : 0; }
+  function calc() {
+    var bookings = n(el.missed) * n(el.days) * Math.min(n(el.rate), 10) / 10, t = n(el.ticket);
+    document.getElementById("mc-loss").textContent = fmt.format(bookings * t);
+    document.getElementById("mc-bk").textContent = Math.round(bookings).toLocaleString("en-US");
+    document.getElementById("mc-cover").textContent = t > 0 ? "Plans start at $97 a month: about " + Math.ceil(97 / t) + " recovered visits covers the smallest one." : "";
+  }
+  ids.forEach(function (i) { el[i].addEventListener("input", calc); });
+  calc();
+})();
+</script>
+</body>
+</html>
